@@ -1,5 +1,7 @@
-import 'package:cinemotion/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cinemotion/config/router/app_router.dart';
+import 'package:cinemotion/config/theme/app_theme.dart';
 
 void main() => runApp(const MainApp());
 
@@ -8,19 +10,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _HomeView();
+    return const _AppView();
   }
 }
 
-class _HomeView extends StatelessWidget {
-  const _HomeView();
+class _AppView extends StatelessWidget {
+  const _AppView();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
-      home: const Scaffold(body: Center(child: Text('Hello World!'))),
     );
   }
 }
