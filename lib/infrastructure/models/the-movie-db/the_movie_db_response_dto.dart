@@ -12,6 +12,9 @@ import 'utils/dates.dart';
 // since they are established as classes that just store information
 // (they do not have methods defined, but only constructors)
 
+// If an error occurs with the data provided by the API, can be checked in this class
+// since it formats the responds from the external source (DTO)
+
 class TheMovieDbResponse {
   Dates? dates;
   int page;
@@ -29,7 +32,7 @@ class TheMovieDbResponse {
 
   factory TheMovieDbResponse.fromJson(Map<String, dynamic> json) =>
       TheMovieDbResponse(
-        dates: json["dates"] ? Dates.fromJson(json["dates"]) : null,
+        dates: json["dates"] != null ? Dates.fromJson(json["dates"]) : null,
         page: json["page"],
         results: List<MovieFromTheMovieDB>.from(
           json["results"].map((x) => MovieFromTheMovieDB.fromJson(x)),

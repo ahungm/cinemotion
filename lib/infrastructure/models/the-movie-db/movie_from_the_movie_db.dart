@@ -1,5 +1,8 @@
 // Defines the data model for a single movie
 
+// If an error occurs with the data provided by the API, can be checked in this class
+// since it formats the responds from the external source (DTO)
+
 class MovieFromTheMovieDB {
   bool adult;
   String backdropPath;
