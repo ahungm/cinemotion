@@ -6,7 +6,7 @@
 import '/domain/entities/movie.dart';
 import '/infrastructure/models/the-movie-db/movie_from_the_movie_db.dart';
 
-class MoiveMapper {
+class MovieMapper {
   static Movie theMovieDBToEntity(MovieFromTheMovieDB moviedb) => Movie(
     adult: moviedb.adult,
     backdropPath: (moviedb.backdropPath != '')
@@ -20,7 +20,7 @@ class MoiveMapper {
     popularity: moviedb.popularity,
     posterPath: (moviedb.posterPath != '')
         ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
-        : 'https://easimages.basnop.com/default-image_600.png',
+        : 'poster-not-found',
     releaseDate: moviedb.releaseDate,
     title: moviedb.title,
     video: moviedb.video,

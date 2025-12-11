@@ -1,6 +1,8 @@
 import 'package:cinemotion/constants/environment.dart';
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/the_movie_db_response_dto.dart';
 import 'package:dio/dio.dart';
 
 // Datasource created to manage all the interactions with
@@ -24,8 +26,19 @@ class TheMovieDbDatasource implements MoviesDatasource {
     final String path = '/movie/now_playing';
     final Response response = await dio.get(path);
 
+    final TheMovieDbResponse movieDbResponse = TheMovieDbResponse.fromJson(
+      response.data,
+    );
+
     // HTTP Conversion to Domain Entity
-    final List<Movie> movies = [];
+    final List<Movie> movies = movieDbResponse.results
+        // Filter the response in orde to ease the renderization in real-time
+        // (Avoids creating Movie objects that do not have poster)
+        .where((moviedb) => moviedb.posterPath != 'poster-not-found')
+        // The Mapper is implemented instead of using
+        // a new instance from the Movie class
+        .map((movieDb) => MovieMapper.theMovieDBToEntity(movieDb))
+        .toList();
     return movies;
   }
 }
