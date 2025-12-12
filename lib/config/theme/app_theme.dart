@@ -5,5 +5,6 @@ class AppTheme {
     // ThemeData parameters
     useMaterial3: true,
     colorSchemeSeed: Color(0xFFBEDC15),
+    fontFamily: 'Product-Sans',
   );
 }

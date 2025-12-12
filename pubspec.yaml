@@ -1,6 +1,6 @@
 name: cinemotion
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -26,3 +26,10 @@ flutter:
 
   assets:
     - .env
+
+fonts:
+  - family: Product-Sans
+    fonts:
+      - asset: fonts/Product-Sans-Regular.ttf
+      - asset: fonts/Product-Sans-Bold.ttf
+        weight: 700

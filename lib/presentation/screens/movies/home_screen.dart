@@ -1,5 +1,6 @@
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/providers/movies/movies_providers.dart';
+import 'package:cinemotion/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,6 +44,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     if (currentMovies.isEmpty) return CircularProgressIndicator();
 
     return Scaffold(
+      appBar: CustomAppBar(),
       body: ListView.builder(
         itemCount: currentMovies.length,
         itemBuilder: (context, index) {
