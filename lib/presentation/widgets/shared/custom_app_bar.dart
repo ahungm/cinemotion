@@ -68,8 +68,7 @@ class _AppBarText extends StatelessWidget {
     return Text(
       'Buscador',
       style: (textStyle ?? const TextStyle()).copyWith(
-        fontFamily:
-            'Product-Sans', // Replace with your actual FontFamily constant if needed
+        fontFamily: 'Product-Sans',
         fontSize: titleSize,
         fontWeight: fontTitle,
       ),
