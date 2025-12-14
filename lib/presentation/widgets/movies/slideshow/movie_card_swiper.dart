@@ -12,12 +12,25 @@ class MovieCardSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
+
     return Swiper(
       scale: 0.9,
       viewportFraction: 0.85,
       autoplay: true,
+      pagination: _buildSwiperPagination(colors: colors),
       itemCount: movies.length,
       itemBuilder: (context, index) => MovieSlide(movie: movies[index]),
     );
   }
 }
+
+SwiperPlugin? _buildSwiperPagination({required ColorScheme colors}) =>
+    SwiperPagination(
+      alignment: Alignment(0, 1.25),
+      margin: EdgeInsets.only(top: 0),
+      builder: DotSwiperPaginationBuilder(
+        activeColor: colors.primary,
+        color: colors.secondary,
+      ),
+    );
