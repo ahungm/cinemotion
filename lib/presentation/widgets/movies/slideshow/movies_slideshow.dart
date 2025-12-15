@@ -1,5 +1,5 @@
 import 'package:cinemotion/domain/entities/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/slideshow/movie_card_swiper.dart';
+import 'package:cinemotion/presentation/widgets/movies/slideshow/movie_slide_swiper.dart';
 import 'package:flutter/material.dart';
 
 class MoviesSlideshow extends StatelessWidget {
@@ -14,7 +14,7 @@ class MoviesSlideshow extends StatelessWidget {
     return SizedBox(
       height: 220,
       width: double.infinity,
-      child: MovieCardSwiper(movies: movies),
+      child: MovieSlideSwiper(movies: movies),
     );
   }
 }
