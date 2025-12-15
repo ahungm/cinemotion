@@ -40,14 +40,24 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<Movie> currentMovies = ref.watch(nowPlayingMoviesProvider);
-    final List<Movie> currentMovies = ref.watch(movieSlideshowProvider);
+    final List<Movie> currentMovies = ref.watch(nowPlayingMoviesProvider);
+    final List<Movie> slideshowMovies = ref.watch(movieSlideshowProvider);
 
-    if (currentMovies.isEmpty) return CircularProgressIndicator();
+    if (slideshowMovies.isEmpty) return CircularProgressIndicator();
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: MoviesSlideshow(movies: currentMovies),
+      body: Column(
+        children: [
+          MoviesSlideshow(movies: slideshowMovies),
+          const SizedBox(height: 30),
+          MovieCarousel(
+            movies: currentMovies,
+            header: 'En Cines',
+            displayDate: 'Lunes 15',
+          ),
+        ],
+      ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
