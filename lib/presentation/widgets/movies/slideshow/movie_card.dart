@@ -1,5 +1,5 @@
 import 'package:cinemotion/domain/entities/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/slideshow/movie_rounded_frame.dart';
+import 'package:cinemotion/presentation/widgets/movies/slideshow/movie_slide.dart';
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
@@ -11,22 +11,9 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Local variable
-    final BoxDecoration decoration = _cardDecoration;
-
-    return DecoratedBox(
-      decoration: decoration,
-      child: MovieRoundedFrame(movie: movie),
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: MovieSlide(movie: movie),
     );
   }
 }
-
-// Variables
-BoxDecoration _cardDecoration = BoxDecoration(
-  borderRadius: BorderRadius.circular(25),
-  boxShadow: [..._boxShadows],
-);
-
-List<BoxShadow> _boxShadows = [
-  const BoxShadow(color: Colors.black45, blurRadius: 5, offset: Offset(0, 5)),
-];

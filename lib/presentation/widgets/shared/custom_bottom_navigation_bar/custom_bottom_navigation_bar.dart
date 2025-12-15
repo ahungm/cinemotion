@@ -18,7 +18,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     final tabs = BottomNavigationTab.tabs;
 
     return BottomNavigationBar(
-      iconSize: 25,
+      iconSize: 30,
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
       showSelectedLabels: false,
       showUnselectedLabels: false,
