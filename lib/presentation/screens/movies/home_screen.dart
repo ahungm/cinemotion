@@ -53,7 +53,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           const SizedBox(height: 30),
           MovieCarousel(
             movies: currentMovies,
-            header: 'En Cines',
+            mainTitle: 'En Cines',
             displayDate: 'Lunes 15',
           ),
         ],
