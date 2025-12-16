@@ -1,6 +1,5 @@
 import 'package:cinemotion/domain/entities/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_rating.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_views.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_details.dart';
 import 'package:flutter/material.dart';
 
 class PosterDetails extends StatelessWidget {
