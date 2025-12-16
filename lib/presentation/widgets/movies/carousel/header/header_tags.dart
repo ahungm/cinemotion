@@ -1,4 +1,4 @@
-import 'package:cinemotion/presentation/widgets/movies/carousel/tonal_text_button.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/header/tonal_text_button.dart';
 import 'package:flutter/material.dart';
 
 class HeaderTags extends StatelessWidget {

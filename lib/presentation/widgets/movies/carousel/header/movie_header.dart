@@ -1,4 +1,4 @@
-import 'package:cinemotion/presentation/widgets/movies/carousel/header_tags.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/header/header_tags.dart';
 import 'package:flutter/material.dart';
 
 class MovieHeader extends StatelessWidget {

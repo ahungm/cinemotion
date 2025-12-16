@@ -2,8 +2,8 @@
 // of elements (in this case, movies)
 
 import 'package:cinemotion/domain/entities/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/movie_banner.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/movie_header.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/poster/decoration/movie_frame.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/header/movie_header.dart';
 import 'package:flutter/material.dart';
 
 class MovieCarousel extends StatelessWidget {
@@ -30,7 +30,7 @@ class MovieCarousel extends StatelessWidget {
       child: Column(
         children: [
           MovieHeader(title: mainTitle, subtitle: displayDate),
-          MovieBanner(movies: movies),
+          MovieFrame(movies: movies),
         ],
       ),
     );
