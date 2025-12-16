@@ -26,7 +26,7 @@ class MovieCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 400,
       child: Column(
         children: [
           MovieHeader(title: mainTitle, subtitle: displayDate),

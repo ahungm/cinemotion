@@ -1,3 +1,4 @@
+import 'package:cinemotion/config/helpers/human_readable_format.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/rounded_poster_image.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,9 @@ class MoviePoster extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(width: 150, child: RoundedPosterImage(movie: movie)),
-          SizedBox(height: 5),
+          SizedBox(height: 12.5),
           SizedBox(
-            height: 32,
+            height: 40,
             width: 150,
             child: Center(
               child: Text(
@@ -31,26 +32,31 @@ class MoviePoster extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              Icon(Icons.star_half_rounded, color: Colors.amberAccent.shade700),
-              const SizedBox(width: 4),
-              Text(
-                '${movie.voteAverage}',
-                style: textStyles.bodyMedium?.copyWith(
+          SizedBox(
+            width: 150,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.star_half_rounded,
                   color: Colors.amberAccent.shade700,
-                  fontWeight: FontWeight.bold,
                 ),
-              ),
-              const SizedBox(width: 30),
-              Text(
-                '${movie.popularity}',
-                style: textStyles.bodySmall?.copyWith(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  HumanReadableFormat.formatNumber(movie.voteAverage),
+                  style: textStyles.bodyMedium?.copyWith(
+                    color: Colors.amberAccent.shade700,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+                const Spacer(),
+                Text(
+                  HumanReadableFormat.formatNumber(movie.popularity),
+                  style: textStyles.bodySmall?.copyWith(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
