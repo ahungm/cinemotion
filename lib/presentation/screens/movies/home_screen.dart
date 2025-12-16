@@ -46,17 +46,61 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     if (slideshowMovies.isEmpty) return CircularProgressIndicator();
 
     return Scaffold(
-      appBar: const CustomAppBar(),
-      body: Column(
-        children: [
-          MoviesSlideshow(movies: slideshowMovies),
-          const SizedBox(height: 30),
-          MovieCarousel(
-            movies: currentMovies,
-            mainTitle: 'En Cines',
-            displayDate: 'Lunes 15',
-            loadNextPage: () =>
-                ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+      body: CustomScrollView(
+        // A sliver is a portion of a scrollable area
+        // (building block) that allows you to define
+        // behavior and effects in a special way
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            snap: true,
+            flexibleSpace: const FlexibleSpaceBar(
+              centerTitle: true,
+              titlePadding: EdgeInsets.all(0),
+              title: CustomAppBar(),
+            ),
+          ),
+
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return Column(
+                children: [
+                  MoviesSlideshow(movies: slideshowMovies),
+                  const SizedBox(height: 30),
+                  MovieCarousel(
+                    movies: currentMovies,
+                    mainTitle: 'En Cines',
+                    displayDate: 'Lunes 15',
+                    loadNextPage: () => ref
+                        .read(nowPlayingMoviesProvider.notifier)
+                        .loadNextPage(),
+                  ),
+                  MovieCarousel(
+                    movies: currentMovies,
+                    mainTitle: 'Proximamente',
+                    loadNextPage: () => ref
+                        .read(nowPlayingMoviesProvider.notifier)
+                        .loadNextPage(),
+                  ),
+                  MovieCarousel(
+                    movies: currentMovies,
+                    mainTitle: 'Populares',
+                    displayDate: 'Este mes',
+                    loadNextPage: () => ref
+                        .read(nowPlayingMoviesProvider.notifier)
+                        .loadNextPage(),
+                  ),
+                  MovieCarousel(
+                    movies: currentMovies,
+                    mainTitle: 'Mejor calificadas',
+                    loadNextPage: () => ref
+                        .read(nowPlayingMoviesProvider.notifier)
+                        .loadNextPage(),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              );
+            }, childCount: 1),
           ),
         ],
       ),

@@ -11,6 +11,7 @@ typedef MovieCallback = Future<List<Movie>> Function({required int page});
 class MoviesNotifier extends Notifier<List<Movie>> {
   // Parameters
   int currentPage = 0;
+  bool isLoading = false; // Boolean flag to avoid simultaneous API request
   late final MovieCallback fetchMoreMovies;
 
   // Build / Initialization method
@@ -25,11 +26,18 @@ class MoviesNotifier extends Notifier<List<Movie>> {
   // Side Effect Methods
 
   Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = _setLoading(true);
     currentPage++;
     final List<Movie> currentMovies = await fetchMoreMovies(page: currentPage);
     state = [...state, ...currentMovies];
+    await Future.delayed(const Duration(milliseconds: 400));
+    isLoading = _setLoading(false);
   }
 }
+
+// Methods
+bool _setLoading(bool value) => value;
 
 // Use Cases - Providers
 final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
