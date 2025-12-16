@@ -1,11 +1,11 @@
 import 'package:cinemotion/presentation/widgets/movies/carousel/header/header_tags.dart';
 import 'package:flutter/material.dart';
 
-class MovieHeader extends StatelessWidget {
+class CarouselHeader extends StatelessWidget {
   final String? title;
   final String? subtitle;
 
-  const MovieHeader({super.key, this.title, this.subtitle});
+  const CarouselHeader({super.key, this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {

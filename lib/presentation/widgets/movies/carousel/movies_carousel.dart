@@ -2,8 +2,8 @@
 // of elements (in this case, movies)
 
 import 'package:cinemotion/domain/entities/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/poster/decoration/movie_poster_frame.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/header/movie_header.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/header/carousel_header.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/horizontal_list_view.dart';
 import 'package:flutter/material.dart';
 
 class MovieCarousel extends StatelessWidget {
@@ -21,7 +21,6 @@ class MovieCarousel extends StatelessWidget {
     this.displayDate,
     this.loadNextPage,
   });
-
   // Build Method
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,8 @@ class MovieCarousel extends StatelessWidget {
       height: 400,
       child: Column(
         children: [
-          MovieHeader(title: mainTitle, subtitle: displayDate),
-          MoviePosterFrame(movies: movies),
+          CarouselHeader(title: mainTitle, subtitle: displayDate),
+          HorizontalListView(movies: movies, loadNextPage: loadNextPage),
         ],
       ),
     );
