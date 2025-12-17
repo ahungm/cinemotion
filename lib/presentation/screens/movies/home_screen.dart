@@ -36,6 +36,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     // Load data
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
     ref.read(upcomingMoviesProvider.notifier).loadNextPage();
     ref.read(topRatedMoviesProvider.notifier).loadNextPage();
 
@@ -58,8 +59,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     final hasData =
-        ref.watch(nowPlayingMoviesProvider).isNotEmpty ||
         ref.watch(movieSlideshowProvider).isNotEmpty ||
+        ref.watch(popularMoviesProvider).isNotEmpty ||
         ref.watch(upcomingMoviesProvider).isNotEmpty ||
         ref.watch(topRatedMoviesProvider).isNotEmpty;
 
@@ -75,8 +76,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   }
 
   Widget _buildHomeContent() {
-    final List<Movie> currentMovies = ref.watch(nowPlayingMoviesProvider);
     final List<Movie> slideshowMovies = ref.watch(movieSlideshowProvider);
+    final List<Movie> popularMovies = ref.watch(popularMoviesProvider);
     final List<Movie> upcomingMovies = ref.watch(upcomingMoviesProvider);
     final List<Movie> topRatedMovies = ref.watch(topRatedMoviesProvider);
 
@@ -98,8 +99,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                 MoviesSlideshow(movies: slideshowMovies),
                 const SizedBox(height: 30),
                 MovieCarousel(
-                  movies: currentMovies,
-                  mainTitle: 'Cartelera',
+                  movies: popularMovies,
+                  mainTitle: 'Populares',
                   displayDate: ref.watch(dateProvider),
                   loadNextPage: () => ref
                       .read(nowPlayingMoviesProvider.notifier)
