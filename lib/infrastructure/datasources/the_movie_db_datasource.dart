@@ -31,10 +31,26 @@ class TheMovieDbDatasource implements MoviesDatasource {
     return _fromJsonToMovies(response.data);
   }
 
+  // Get Upcoming Movies
+  @override
+  Future<List<Movie>> getUpcoming({int page = 1}) async {
+    final String path = '/movie/upcoming';
+    final Response response = await _getResponse(path, page);
+    return _fromJsonToMovies(response.data);
+  }
+
   // Get Popular Movies
   @override
   Future<List<Movie>> getPopular({int page = 1}) async {
     final String path = '/movie/popular';
+    final Response response = await _getResponse(path, page);
+    return _fromJsonToMovies(response.data);
+  }
+
+  // Get Upcoming Movies
+  @override
+  Future<List<Movie>> getTopRated({int page = 1}) async {
+    final String path = '/movie/top_rated';
     final Response response = await _getResponse(path, page);
     return _fromJsonToMovies(response.data);
   }

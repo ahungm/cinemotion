@@ -51,11 +51,29 @@ class NowPlayingMoviesNotifier extends MoviesNotifier {
   }
 }
 
+class UpcomingMoviesNotifier extends MoviesNotifier {
+  @override
+  List<Movie> build() {
+    final repository = ref.watch(movieRepositoryProvider);
+    fetch(repository.getUpcoming);
+    return movies;
+  }
+}
+
 class PopularMoviesNotifier extends MoviesNotifier {
   @override
   List<Movie> build() {
     final repository = ref.watch(movieRepositoryProvider);
     fetch(repository.getPopular);
+    return movies;
+  }
+}
+
+class TopRatedMoviesNotifier extends MoviesNotifier {
+  @override
+  List<Movie> build() {
+    final repository = ref.watch(movieRepositoryProvider);
+    fetch(repository.getTopRated);
     return movies;
   }
 }
@@ -66,7 +84,17 @@ final nowPlayingMoviesProvider =
       NowPlayingMoviesNotifier.new,
     );
 
+final upcomingMoviesProvider =
+    NotifierProvider<UpcomingMoviesNotifier, List<Movie>>(
+      UpcomingMoviesNotifier.new,
+    );
+
 final popularMoviesProvider =
     NotifierProvider<PopularMoviesNotifier, List<Movie>>(
       PopularMoviesNotifier.new,
+    );
+
+final topRatedMoviesProvider =
+    NotifierProvider<TopRatedMoviesNotifier, List<Movie>>(
+      TopRatedMoviesNotifier.new,
     );
