@@ -13,7 +13,7 @@ class FullScreenLoader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Por favor espere', style: textStyles.bodyMedium),
+          Text('Por favor, espere un momento', style: textStyles.bodyMedium),
           const SizedBox(height: 40),
           const CircularProgressIndicator(strokeWidth: 4),
           const SizedBox(height: 40),
