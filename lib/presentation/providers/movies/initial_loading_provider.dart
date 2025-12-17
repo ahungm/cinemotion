@@ -4,9 +4,11 @@ import 'package:cinemotion/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 
-final initialLoadingProvider = Provider<bool>((ref) => _isAlreadyRendered(ref));
+final initialLoadingProvider = Provider<bool>(
+  (ref) => !_areMoviesAlreadyRendered(ref),
+);
 
-bool _isAlreadyRendered(Ref ref) {
+bool _areMoviesAlreadyRendered(Ref ref) {
   final providers = <ProviderListenable>[
     nowPlayingMoviesProvider,
     movieSlideshowProvider,

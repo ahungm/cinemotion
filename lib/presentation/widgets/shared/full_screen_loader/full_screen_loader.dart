@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class FullScreenLoader extends StatelessWidget {
@@ -11,15 +13,15 @@ class FullScreenLoader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Por favor espere', style: textStyles.bodySmall),
-          const SizedBox(height: 30),
+          Text('Por favor espere', style: textStyles.bodyMedium),
+          const SizedBox(height: 40),
           const CircularProgressIndicator(strokeWidth: 4),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           StreamBuilder<String>(
             stream: _getLoadingMessages(),
             builder: (context, snapshot) => (!snapshot.hasData)
-                ? Text('Cargando...', style: textStyles.bodySmall)
-                : Text(snapshot.data!),
+                ? Text('', style: textStyles.bodyMedium)
+                : Text(snapshot.data!, style: textStyles.bodyMedium),
           ),
         ],
       ),
@@ -27,17 +29,32 @@ class FullScreenLoader extends StatelessWidget {
   }
 
   Stream<String> _getLoadingMessages() {
-    final List<String> messages = [
+    final messages = [
       'Cargando películas...',
       'Renderizando cartelera...',
       'Buscando su cine más cercano...',
       'Cocinando las palomitas...',
-      'Lamentamos la demora, pero ya está listo !',
+      'Conectando a la base de datos...',
+      'Copiando a Tomatazos...',
+      'Disfrutando del séptimo arte...',
+      'Iniciando sesión...',
+      'Comprando caramelos...',
+      'Lamentamos la demora, pero ya casi está listo...',
     ];
 
-    return Stream.periodic(
-      const Duration(milliseconds: 1250),
-      (step) => messages[step],
-    ).take(messages.length);
+    final random = Random();
+    int lastIndex = -1;
+
+    return Stream.periodic(const Duration(milliseconds: 1250), (_) {
+      int newIndex;
+
+      // Ensure we don't show the same message twice in a row
+      do {
+        newIndex = random.nextInt(messages.length);
+      } while (newIndex == lastIndex && messages.length > 1);
+
+      lastIndex = newIndex;
+      return messages[newIndex];
+    });
   }
 }
