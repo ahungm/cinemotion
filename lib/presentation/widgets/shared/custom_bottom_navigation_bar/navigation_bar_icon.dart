@@ -7,7 +7,7 @@ class NavigationBarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double marginTop = 2.5;
+    const double marginTop = 1.25;
 
     return Container(
       margin: EdgeInsets.only(top: marginTop),

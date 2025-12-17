@@ -21,16 +21,31 @@ class TheMovieDbDatasource implements MoviesDatasource {
     ),
   );
 
+  // Datasource methods
+
+  // Get Now Playing Movies
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) async {
     final String path = '/movie/now_playing';
-    final Response response = await dio.get(
-      path,
-      queryParameters: {'page': page},
-    );
+    final Response response = await _getResponse(path, page);
+    return _fromJsonToMovies(response.data);
+  }
 
+  // Get Popular Movies
+  @override
+  Future<List<Movie>> getPopular({int page = 1}) async {
+    final String path = '/movie/popular';
+    final Response response = await _getResponse(path, page);
+    return _fromJsonToMovies(response.data);
+  }
+
+  // Methods
+  Future<Response> _getResponse(String endpoint, int page) async =>
+      await dio.get(endpoint, queryParameters: {'page': page});
+
+  List<Movie> _fromJsonToMovies(Map<String, dynamic> jsonResponse) {
     final TheMovieDbResponse movieDbResponse = TheMovieDbResponse.fromJson(
-      response.data,
+      jsonResponse,
     );
 
     // HTTP Conversion to Domain Entity

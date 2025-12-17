@@ -31,17 +31,14 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     // Read of the provider to obtain the data
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Movie> currentMovies = ref.watch(nowPlayingMoviesProvider);
     final List<Movie> slideshowMovies = ref.watch(movieSlideshowProvider);
+    final List<Movie> popularMovies = ref.watch(popularMoviesProvider);
 
     if (slideshowMovies.isEmpty) return CircularProgressIndicator();
 
@@ -77,13 +74,13 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   ),
                   MovieCarousel(
                     movies: currentMovies,
-                    mainTitle: 'Proximamente',
+                    mainTitle: 'Próximamente',
                     loadNextPage: () => ref
                         .read(nowPlayingMoviesProvider.notifier)
                         .loadNextPage(),
                   ),
                   MovieCarousel(
-                    movies: currentMovies,
+                    movies: popularMovies,
                     mainTitle: 'Populares',
                     displayDate: 'Este mes',
                     loadNextPage: () => ref

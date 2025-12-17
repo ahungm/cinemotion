@@ -13,17 +13,19 @@ class MoviesNotifier extends Notifier<List<Movie>> {
   int currentPage = 0;
   bool isLoading = false; // Boolean flag to avoid simultaneous API request
   late final MovieCallback fetchMoreMovies;
+  List<Movie> movies = [];
 
   // Build / Initialization method
   @override
   List<Movie> build() {
-    // The list will change its state for the movies that are currently being played
-    fetchMoreMovies = ref.watch(movieRepositoryProvider).getNowPlaying;
     // The list of movies is empty as an initial state
-    return [];
+    return movies;
   }
 
   // Side Effect Methods
+
+  // Initialize
+  void fetch(MovieCallback fetchFuncion) => fetchMoreMovies = fetchFuncion;
 
   Future<void> loadNextPage() async {
     if (isLoading) return;
@@ -39,7 +41,32 @@ class MoviesNotifier extends Notifier<List<Movie>> {
 // Methods
 bool _setLoading(bool value) => value;
 
+// Provider classes
+class NowPlayingMoviesNotifier extends MoviesNotifier {
+  @override
+  List<Movie> build() {
+    final repository = ref.watch(movieRepositoryProvider);
+    fetch(repository.getNowPlaying);
+    return movies;
+  }
+}
+
+class PopularMoviesNotifier extends MoviesNotifier {
+  @override
+  List<Movie> build() {
+    final repository = ref.watch(movieRepositoryProvider);
+    fetch(repository.getPopular);
+    return movies;
+  }
+}
+
 // Use Cases - Providers
-final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
-  MoviesNotifier.new,
-);
+final nowPlayingMoviesProvider =
+    NotifierProvider<NowPlayingMoviesNotifier, List<Movie>>(
+      NowPlayingMoviesNotifier.new,
+    );
+
+final popularMoviesProvider =
+    NotifierProvider<PopularMoviesNotifier, List<Movie>>(
+      PopularMoviesNotifier.new,
+    );
