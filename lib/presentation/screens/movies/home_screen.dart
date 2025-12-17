@@ -38,72 +38,76 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final initialLoader = ref.watch(initialLoadingProvider);
+    // if (initialLoader) return const FullScreenLoader();
+
     final List<Movie> currentMovies = ref.watch(nowPlayingMoviesProvider);
     final List<Movie> slideshowMovies = ref.watch(movieSlideshowProvider);
     final List<Movie> upcomingMovies = ref.watch(upcomingMoviesProvider);
     final List<Movie> popularMovies = ref.watch(popularMoviesProvider);
     final List<Movie> topRatedMovies = ref.watch(topRatedMoviesProvider);
 
-    if (slideshowMovies.isEmpty) return CircularProgressIndicator();
-
     return Scaffold(
-      body: CustomScrollView(
-        // A sliver is a portion of a scrollable area
-        // (building block) that allows you to define
-        // behavior and effects in a special way
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            snap: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              centerTitle: true,
-              titlePadding: EdgeInsets.all(0),
-              title: CustomAppBar(),
+      body: Visibility(
+        // visible: !initialLoader,
+        child: CustomScrollView(
+          // A sliver is a portion of a scrollable area
+          // (building block) that allows you to define
+          // behavior and effects in a special way
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              flexibleSpace: const FlexibleSpaceBar(
+                centerTitle: true,
+                titlePadding: EdgeInsets.all(0),
+                title: CustomAppBar(),
+              ),
             ),
-          ),
 
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Column(
-                children: [
-                  MoviesSlideshow(movies: slideshowMovies),
-                  const SizedBox(height: 30),
-                  MovieCarousel(
-                    movies: currentMovies,
-                    mainTitle: 'En Cines',
-                    displayDate: 'Lunes 15',
-                    loadNextPage: () => ref
-                        .read(nowPlayingMoviesProvider.notifier)
-                        .loadNextPage(),
-                  ),
-                  MovieCarousel(
-                    movies: upcomingMovies,
-                    mainTitle: 'Próximamente',
-                    loadNextPage: () => ref
-                        .read(nowPlayingMoviesProvider.notifier)
-                        .loadNextPage(),
-                  ),
-                  MovieCarousel(
-                    movies: popularMovies,
-                    mainTitle: 'Populares',
-                    displayDate: 'Este mes',
-                    loadNextPage: () => ref
-                        .read(nowPlayingMoviesProvider.notifier)
-                        .loadNextPage(),
-                  ),
-                  MovieCarousel(
-                    movies: topRatedMovies,
-                    mainTitle: 'Mejor calificadas',
-                    loadNextPage: () => ref
-                        .read(nowPlayingMoviesProvider.notifier)
-                        .loadNextPage(),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              );
-            }, childCount: 1),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Column(
+                  children: [
+                    MoviesSlideshow(movies: slideshowMovies),
+                    const SizedBox(height: 30),
+                    MovieCarousel(
+                      movies: currentMovies,
+                      mainTitle: 'En Cines',
+                      displayDate: 'Lunes 15',
+                      loadNextPage: () => ref
+                          .read(nowPlayingMoviesProvider.notifier)
+                          .loadNextPage(),
+                    ),
+                    MovieCarousel(
+                      movies: upcomingMovies,
+                      mainTitle: 'Próximamente',
+                      loadNextPage: () => ref
+                          .read(nowPlayingMoviesProvider.notifier)
+                          .loadNextPage(),
+                    ),
+                    MovieCarousel(
+                      movies: popularMovies,
+                      mainTitle: 'Populares',
+                      displayDate: 'Este mes',
+                      loadNextPage: () => ref
+                          .read(nowPlayingMoviesProvider.notifier)
+                          .loadNextPage(),
+                    ),
+                    MovieCarousel(
+                      movies: topRatedMovies,
+                      mainTitle: 'Mejor calificadas',
+                      loadNextPage: () => ref
+                          .read(nowPlayingMoviesProvider.notifier)
+                          .loadNextPage(),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                );
+              }, childCount: 1),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );

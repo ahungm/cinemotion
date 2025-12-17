@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/decoration/movie_poster.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _HorizontalListViewState extends State<HorizontalListView> {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return MoviePoster(movie: widget.movies[index]);
+          return FadeInRight(child: MoviePoster(movie: widget.movies[index]));
         },
       ),
     );
