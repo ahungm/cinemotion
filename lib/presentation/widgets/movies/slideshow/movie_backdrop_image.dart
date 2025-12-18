@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/widgets/shared/image_progress_indicator/image_progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,10 @@ class MovieBackdropImage extends StatelessWidget {
     return Image.network(
       movie.backdropPath,
       fit: BoxFit.cover,
-      loadingBuilder: ImageProgressIndicator.buildImageLoader,
+      loadingBuilder: (context, child, loadingProgress) =>
+          (loadingProgress != null)
+          ? ImageProgressIndicator(loadingProgress: loadingProgress)
+          : FadeIn(child: child),
     );
   }
 }

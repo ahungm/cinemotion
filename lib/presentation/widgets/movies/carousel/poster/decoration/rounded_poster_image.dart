@@ -1,6 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/widgets/shared/image_progress_indicator/image_progress_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RoundedPosterImage extends StatelessWidget {
   // Attributes
@@ -26,7 +28,13 @@ class RoundedPosterImage extends StatelessWidget {
             movie.posterPath,
             height: 220,
             width: 150,
-            loadingBuilder: ImageProgressIndicator.buildImageLoader,
+            loadingBuilder: (context, child, loadingProgress) =>
+                (loadingProgress != null)
+                ? ImageProgressIndicator(loadingProgress: loadingProgress)
+                : GestureDetector(
+                    onTap: () => context.go('/movie/${movie.id}'),
+                    child: FadeIn(child: child),
+                  ),
           ),
         ),
       ),
