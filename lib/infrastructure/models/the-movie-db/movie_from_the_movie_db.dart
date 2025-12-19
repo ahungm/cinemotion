@@ -4,6 +4,7 @@
 // since it formats the responds from the external source (DTO)
 
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre_parser.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/the_movie_db_entity.dart';
 
 class MovieFromTheMovieDB extends TheMovieDbEntity {
@@ -56,9 +57,7 @@ class MovieFromTheMovieDB extends TheMovieDbEntity {
       MovieFromTheMovieDB(
         adult: json["adult"] ?? '',
         backdropPath: json["backdrop_path"] ?? '',
-        genreIds: List<Genre>.from(
-          json["genres"].map((x) => Genre.fromJson(x)),
-        ),
+        genreIds: GenreParser.parse(json["genres"] ?? json["genre_ids"]),
         id: json["id"],
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],

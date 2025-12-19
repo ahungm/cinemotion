@@ -81,7 +81,7 @@ class SingleMovieDetails extends TheMovieDbEntity {
         ? null
         : BelongsToCollection.fromJson(json["belongs_to_collection"]),
     budget: json["budget"],
-    genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+    genres: GenreParser.parse(json["genres"]),
     homepage: json["homepage"],
     id: json["id"],
     imdbId: json["imdb_id"],
