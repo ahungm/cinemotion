@@ -31,4 +31,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
   Future<List<Movie>> getTopRated({int page = 1}) async {
     return datasource.getTopRated(page: page);
   }
+
+  @override
+  Future<Movie> getMovieById({required String id}) {
+    return datasource.getMovieById(id: id);
+  }
 }

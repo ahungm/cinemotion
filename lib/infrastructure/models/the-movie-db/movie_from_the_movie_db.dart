@@ -3,21 +3,37 @@
 // If an error occurs with the data provided by the API, can be checked in this class
 // since it formats the responds from the external source (DTO)
 
-class MovieFromTheMovieDB {
-  bool adult;
-  String backdropPath;
-  List<int> genreIds;
-  int id;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String posterPath;
-  DateTime releaseDate;
-  String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
+import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/the_movie_db_entity.dart';
+
+class MovieFromTheMovieDB extends TheMovieDbEntity {
+  @override
+  final bool adult;
+  @override
+  final String backdropPath;
+  final List<Genre> genreIds;
+  @override
+  final int id;
+  @override
+  final String originalLanguage;
+  @override
+  final String originalTitle;
+  @override
+  final String overview;
+  @override
+  final double popularity;
+  @override
+  final String posterPath;
+  @override
+  final DateTime releaseDate;
+  @override
+  final String title;
+  @override
+  final bool video;
+  @override
+  final double voteAverage;
+  @override
+  final int voteCount;
 
   MovieFromTheMovieDB({
     required this.adult,
@@ -40,7 +56,9 @@ class MovieFromTheMovieDB {
       MovieFromTheMovieDB(
         adult: json["adult"] ?? '',
         backdropPath: json["backdrop_path"] ?? '',
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+        genreIds: List<Genre>.from(
+          json["genres"].map((x) => Genre.fromJson(x)),
+        ),
         id: json["id"],
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
@@ -54,6 +72,7 @@ class MovieFromTheMovieDB {
         voteCount: json["vote_count"],
       );
 
+  @override
   Map<String, dynamic> toJson() => {
     "adult": adult,
     "backdrop_path": backdropPath,
@@ -71,4 +90,7 @@ class MovieFromTheMovieDB {
     "vote_average": voteAverage,
     "vote_count": voteCount,
   };
+
+  @override
+  List<Genre> get genres => genreIds;
 }

@@ -1,5 +1,5 @@
 import 'movie_from_the_movie_db.dart';
-import 'utils/dates.dart';
+import 'helpers/dates.dart';
 
 // Maps the entire response from the TheMovieDB API, including
 // the list of movies an another details

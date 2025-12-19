@@ -2,6 +2,8 @@ import 'package:cinemotion/constants/environment.dart';
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/movie_from_the_movie_db.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/single_move_details.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/the_movie_db_response_dto.dart';
 import 'package:dio/dio.dart';
 
@@ -55,9 +57,29 @@ class TheMovieDbDatasource implements MoviesDatasource {
     return _fromJsonToMovies(response.data);
   }
 
+  // Get Movie By Id
+  @override
+  Future<Movie> getMovieById({required String id}) async {
+    final String path = '/movie/$id';
+    final Response response = await dio.get(path);
+
+    if (response.statusCode != 200) {
+      throw Exception('Movie with id: $id was not found');
+    }
+
+    final singleMovie = SingleMovieDetails.fromJson(response.data);
+    final Movie movie = MovieMapper.theMovieDbToEntity<SingleMovieDetails>(
+      singleMovie,
+    );
+
+    return movie;
+  }
+
   // Methods
-  Future<Response> _getResponse(String endpoint, int page) async =>
-      await dio.get(endpoint, queryParameters: {'page': page});
+  Future<Response> _getResponse<T extends int>(
+    String endpoint,
+    T param,
+  ) async => await dio.get(endpoint, queryParameters: {'page': param});
 
   List<Movie> _fromJsonToMovies(Map<String, dynamic> jsonResponse) {
     final TheMovieDbResponse movieDbResponse = TheMovieDbResponse.fromJson(
@@ -71,7 +93,10 @@ class TheMovieDbDatasource implements MoviesDatasource {
         .where((moviedb) => moviedb.posterPath != 'poster-not-found')
         // The Mapper is implemented instead of using
         // a new instance from the Movie class
-        .map((movieDb) => MovieMapper.theMovieDBToEntity(movieDb))
+        .map(
+          (movieDb) =>
+              MovieMapper.theMovieDbToEntity<MovieFromTheMovieDB>(movieDb),
+        )
         .toList();
     return movies;
   }
