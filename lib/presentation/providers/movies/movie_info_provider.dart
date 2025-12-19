@@ -21,11 +21,10 @@ class MovieMapNotifier extends Notifier<Map<String, Movie>> {
   // Initialize
   void getMovieInfo(GetMovieCallback getFunction) => getMovie = getFunction;
 
-  Future<void> loadMovie(String movieId) async {
-    if (state[movieId] != null) return;
+  Future<void> loadMovie({required String id}) async {
+    if (state[id] != null) return;
     final movie = await getMovie(id: id);
-
-    state = {...state, movieId: movie};
+    state = {...state, id: movie};
   }
 }
 
