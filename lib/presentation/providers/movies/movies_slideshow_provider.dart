@@ -8,6 +8,6 @@ final movieSlideshowProvider = Provider<List<Movie>>(
 );
 
 List<Movie> _checkNowPlayingMovies({required Ref ref}) {
-  final currentMovies = ref.watch(nowPlayingMoviesProvider);
+  final currentMovies = ref.watch(popularMoviesProvider);
   return currentMovies.isEmpty ? [] : currentMovies.sublist(0, 5);
 }
