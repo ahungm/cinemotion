@@ -1,5 +1,6 @@
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/providers/providers.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -56,50 +57,7 @@ class CustomSliverAppBar extends StatelessWidget {
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: physicalDeviceSize.height * 0.70,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        titlePadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-        title: Text(
-          movie.title,
-          style: const TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-          textAlign: TextAlign.start,
-        ),
-        background: Stack(
-          children: [
-            SizedBox.expand(
-              child: Image.network(movie.posterPath, fit: BoxFit.cover),
-            ),
-            const Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.7, 1.0], // Begin - End percentage of the gradient
-                    colors: [Colors.transparent, Colors.black87],
-                  ),
-                ),
-              ),
-            ),
-
-            const Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    stops: [0.0, 0.5], // Begin - End percentage of the gradient
-                    colors: [Colors.black26, Colors.transparent],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      flexibleSpace: MovieArea(movie: movie),
     );
   }
 }
