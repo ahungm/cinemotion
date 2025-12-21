@@ -1,4 +1,4 @@
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_details.dart';
 import 'package:flutter/material.dart';
 

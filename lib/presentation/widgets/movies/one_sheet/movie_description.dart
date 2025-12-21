@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_rating.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_views.dart';
 
@@ -100,17 +100,21 @@ class _ContentDescription extends StatelessWidget {
 
         // Genre Chips - Wrap handles "infinity" width automatically
         Wrap(
-          spacing: 8.0, // Space between chips
-          runSpacing: 10.0, // Space between lines
-          children: movie.genreIds
+          spacing: 15.0, // Space between chips
+          runSpacing: 5.0,
+          children: movie.genres
               .map(
                 (genre) => Chip(
-                  label: Text(genre, style: const TextStyle(fontSize: 12)),
-                  visualDensity: VisualDensity.compact,
+                  // We access the name directly from the Genre object inside the Movie
+                  label: Text(
+                    genre.name,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ), // Fixed: Use BorderRadius
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               )

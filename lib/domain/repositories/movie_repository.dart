@@ -1,4 +1,4 @@
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 
 abstract class MoviesRepository {
   // The repository would access to the domain entities by

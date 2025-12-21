@@ -1,4 +1,4 @@
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 
 // API Requests (Endpoints)
 

@@ -1,3 +1,4 @@
+import 'package:cinemotion/domain/entities/movie/value_objects/genre.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/helpers.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/the_movie_db_entity.dart';
 

@@ -1,7 +1,7 @@
 // A Carousel will comprehend an Horizontal ListView
 // of elements (in this case, movies)
 
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/header/carousel_header.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/horizontal_list_view.dart';
 import 'package:flutter/material.dart';

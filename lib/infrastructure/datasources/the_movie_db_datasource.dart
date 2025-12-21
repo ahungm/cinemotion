@@ -1,6 +1,6 @@
 import 'package:cinemotion/constants/environment.dart';
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/infrastructure/mappers/movie_mapper.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/movie_from_the_movie_db.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/single_move_details.dart';

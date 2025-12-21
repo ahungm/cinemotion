@@ -1,4 +1,4 @@
-import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre.dart';
+import 'package:cinemotion/domain/entities/movie/value_objects/genre.dart';
 
 class GenreParser {
   static List<Genre> parse(dynamic json) {

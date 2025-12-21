@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/providers/providers.dart';
 import 'package:cinemotion/presentation/providers/shared/date_provider.dart';
 import 'package:cinemotion/presentation/widgets/shared/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';

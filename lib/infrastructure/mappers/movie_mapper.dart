@@ -5,7 +5,7 @@
 
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/the_movie_db_entity.dart';
 
-import '/domain/entities/movie.dart';
+import '../../domain/entities/movie/movie.dart';
 
 class MovieMapper {
   static Movie theMovieDbToEntity<T extends TheMovieDbEntity>(T movieDb) =>
@@ -14,7 +14,7 @@ class MovieMapper {
         backdropPath: (movieDb.backdropPath != '')
             ? 'https://image.tmdb.org/t/p/w500${movieDb.backdropPath}'
             : 'https://easimages.basnop.com/default-image_600.png',
-        genreIds: movieDb.genres.map((genre) => genre.toString()).toList(),
+        genres: movieDb.genres.map((genre) => genre).toList(),
         id: movieDb.id,
         originalLanguage: movieDb.originalLanguage,
         originalTitle: movieDb.originalTitle,

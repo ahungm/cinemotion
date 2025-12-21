@@ -1,5 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cinemotion/domain/entities/movie.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/shared/image_progress_indicator/image_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

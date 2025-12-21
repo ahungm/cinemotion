@@ -3,7 +3,7 @@
 // If an error occurs with the data provided by the API, can be checked in this class
 // since it formats the responds from the external source (DTO)
 
-import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre.dart';
+import 'package:cinemotion/domain/entities/movie/value_objects/genre.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/genre_parser.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/helpers/the_movie_db_entity.dart';
 
