@@ -1,7 +1,8 @@
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/genre_selector.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_data.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_poster_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_rating.dart';
-import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_views.dart';
 
 class MovieDescription extends StatelessWidget {
   final Movie movie;
@@ -36,90 +37,16 @@ class _ContentDescription extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Fixed Image Width with rounded corners
-            ClipRRect(
-              borderRadius: BorderRadius.circular(
-                20,
-              ), // Fixed: Use BorderRadius
-              child: Image.network(
-                movie.posterPath,
-                width: size.width * 0.3,
-                fit: BoxFit.cover,
-                // Loading placeholder to prevent layout shifts
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    width: size.width * 0.3,
-                    height: size.width * 0.45,
-                    color: Colors.black12,
-                    child: const Center(child: CircularProgressIndicator()),
-                  );
-                },
-              ),
-            ),
-
+            MoviePosterSheet(movie: movie, size: size),
             const SizedBox(width: 20),
-
-            // Use Expanded instead of hardcoded math to prevent overflow
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    movie.title,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      MovieRating(
-                        color: Colors.amber,
-                        rating: movie.voteAverage,
-                      ),
-                      const SizedBox(width: 15),
-                      const Icon(Icons.remove_red_eye_rounded, size: 18),
-                      const SizedBox(width: 5),
-                      MovieViews(viewsCount: movie.popularity),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    movie.overview,
-                    textAlign: TextAlign.justify,
-                    style: textTheme.bodyMedium,
-                  ),
-                ],
-              ),
-            ),
+            MovieData(movie: movie, theme: textTheme),
           ],
         ),
 
         const SizedBox(height: 20),
 
         // Genre Chips - Wrap handles "infinity" width automatically
-        Wrap(
-          spacing: 15.0, // Space between chips
-          runSpacing: 5.0,
-          children: movie.genres
-              .map(
-                (genre) => Chip(
-                  // We access the name directly from the Genre object inside the Movie
-                  label: Text(
-                    genre.name,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
+        GenreSelector(movie: movie),
 
         const SizedBox(height: 50),
       ],
