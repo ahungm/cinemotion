@@ -1,6 +1,6 @@
 import 'package:cinemotion/domain/entities/movie.dart';
 import 'package:cinemotion/presentation/providers/providers.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_area.dart';
+import 'package:cinemotion/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,7 +38,15 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
       body: CustomScrollView(
         physics:
             ClampingScrollPhysics(), // Avoid the image to have an elastic effect
-        slivers: [CustomSliverAppBar(movie: movie)],
+        slivers: [
+          CustomSliverAppBar(movie: movie),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => MovieDescription(movie: movie),
+              childCount: 1,
+            ),
+          ),
+        ],
       ),
     );
   }
