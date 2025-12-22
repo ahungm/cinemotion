@@ -12,16 +12,27 @@ class MovieArea extends StatelessWidget {
     return FlexibleSpaceBar(
       centerTitle: true,
       titlePadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-      title: Text(
-        movie.title,
-        style: const TextStyle(
-          fontSize: 15,
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
-        textAlign: TextAlign.start,
-      ),
+      title: _MovieTitle(title: ''),
       background: MovieSheet(movie: movie),
+    );
+  }
+}
+
+class _MovieTitle extends StatelessWidget {
+  final String title;
+
+  const _MovieTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 15,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
+      textAlign: TextAlign.start,
     );
   }
 }
