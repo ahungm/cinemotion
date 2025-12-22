@@ -1,6 +1,6 @@
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
-import 'package:cinemotion/domain/repositories/movie_repository.dart';
+import 'package:cinemotion/domain/repositories/movies_repository.dart';
 
 class MoviesRepositoryImpl implements MoviesRepository {
   // Parameters / Attributes
