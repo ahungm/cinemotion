@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 // Datasource created to manage all the interactions with
 // The Movie DB API
-class TheMovieDbDatasource implements MoviesDatasource {
+class MovieDbDatasource implements MoviesDatasource {
   // Dio Instance
   final Dio dio = Dio(
     BaseOptions(

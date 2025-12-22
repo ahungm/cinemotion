@@ -1,4 +1,4 @@
-import 'package:cinemotion/infrastructure/datasources/the_movie_db_datasource.dart';
+import 'package:cinemotion/infrastructure/datasources/the_movie_db/movie_db_datasource.dart';
 import 'package:cinemotion/infrastructure/repositories/movies_repository_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,5 +7,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final movieRepositoryProvider = Provider((ref) {
   // Summoning of the specific instance of the selected datasource
   // MoviesRepositoryImpl(datasource);
-  return MoviesRepositoryImpl(TheMovieDbDatasource());
+  return MoviesRepositoryImpl(MovieDbDatasource());
 });
