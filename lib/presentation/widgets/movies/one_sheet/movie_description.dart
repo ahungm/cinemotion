@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/actor/actor.dart';
 import 'package:cinemotion/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/genre_selector.dart';
@@ -91,13 +92,15 @@ class ActorsByMovieCarousel extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    actor.profilePath,
-                    height: 200,
-                    width: 135,
-                    fit: BoxFit.cover,
+                FadeInRight(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      actor.profilePath,
+                      height: 200,
+                      width: 135,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(height: 5),
