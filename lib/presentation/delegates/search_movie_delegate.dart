@@ -7,7 +7,23 @@ import 'package:flutter/material.dart';
 // of another, more complex object. This promotes cleaner, more modular, and reusable
 // code, especially when building UI interfaces
 
+// A Future Builder Widget is used only if exists the necessity to
+// build Widgets based on the results of a Future (ex. HTTP Request,
+// an async operation)
+
+// The StreamBuilder is designed instead to handle an updates flow
+// (it allows to control the events, as well as the specific time to
+// emit new values)
+
+typedef GetMoviesCallback = Future<List<Movie>> Function(String query);
+
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
+  // Attributes
+  final GetMoviesCallback searchMovies;
+
+  // Constructor
+  SearchMovieDelegate({required this.searchMovies});
+
   @override
   String get searchFieldLabel => 'Buscar película';
 
@@ -18,7 +34,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       FadeIn(
         animate: query.isNotEmpty,
         duration: const Duration(milliseconds: 250),
-        child: IconButton(onPressed: () => query = '', icon: Icon(Icons.clear)),
+        child: IconButton(
+          onPressed: () => query = '',
+          icon: const Icon(Icons.clear),
+        ),
       ),
     ];
   }
@@ -37,7 +56,22 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   }
 
   @override
+  // Always that a 'build' exist, it can be invoked
+  // a state manager to control automatically the
+  // changes
   Widget buildSuggestions(BuildContext context) {
-    return Text('This is buildSuggestions');
+    return FutureBuilder(
+      future: searchMovies(query),
+      builder: (context, snapshot) {
+        final movies = snapshot.data ?? [];
+        return ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (context, index) {
+            final Movie movie = movies[index];
+            return ListTile(title: Text(movie.title));
+          },
+        );
+      },
+    );
   }
 }
