@@ -29,7 +29,7 @@ class MovieDbDatasource implements MoviesDatasource {
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) async {
     final String path = '/movie/now_playing';
-    final Response response = await _getResponse(path, page);
+    final Response response = await _getResponse(path, {'page': page});
     return _fromJsonToMovies(response.data);
   }
 
@@ -37,7 +37,7 @@ class MovieDbDatasource implements MoviesDatasource {
   @override
   Future<List<Movie>> getUpcoming({int page = 1}) async {
     final String path = '/movie/upcoming';
-    final Response response = await _getResponse(path, page);
+    final Response response = await _getResponse(path, {'page': page});
     return _fromJsonToMovies(response.data);
   }
 
@@ -45,7 +45,7 @@ class MovieDbDatasource implements MoviesDatasource {
   @override
   Future<List<Movie>> getPopular({int page = 1}) async {
     final String path = '/movie/popular';
-    final Response response = await _getResponse(path, page);
+    final Response response = await _getResponse(path, {'page': page});
     return _fromJsonToMovies(response.data);
   }
 
@@ -53,7 +53,7 @@ class MovieDbDatasource implements MoviesDatasource {
   @override
   Future<List<Movie>> getTopRated({int page = 1}) async {
     final String path = '/movie/top_rated';
-    final Response response = await _getResponse(path, page);
+    final Response response = await _getResponse(path, {'page': page});
     return _fromJsonToMovies(response.data);
   }
 
@@ -75,11 +75,21 @@ class MovieDbDatasource implements MoviesDatasource {
     return movie;
   }
 
+  // Search Movies
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+    final String path = '/search/movie/$query';
+    final Response response = await _getResponse(path, {'query': query});
+    return _fromJsonToMovies(response.data);
+  }
+
   // Methods
-  Future<Response> _getResponse<T extends int>(
-    String endpoint,
-    T param,
-  ) async => await dio.get(endpoint, queryParameters: {'page': param});
+  Future<Response> _getResponse(
+    String endpoint, [
+    Map<String, dynamic>? queryParameters,
+  ]) async {
+    return await dio.get(endpoint, queryParameters: queryParameters);
+  }
 
   List<Movie> _fromJsonToMovies(Map<String, dynamic> jsonResponse) {
     final TheMovieDbResponse movieDbResponse = TheMovieDbResponse.fromJson(
