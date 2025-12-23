@@ -63,13 +63,15 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     return FutureBuilder(
       future: searchMovies(query),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
         final movies = snapshot.data ?? [];
         return ListView.builder(
           itemCount: movies.length,
-          itemBuilder: (context, index) {
-            final Movie movie = movies[index];
-            return ListTile(title: Text(movie.title));
-          },
+          itemBuilder: (context, index) =>
+              ListTile(title: Text(movies[index].title)),
         );
       },
     );

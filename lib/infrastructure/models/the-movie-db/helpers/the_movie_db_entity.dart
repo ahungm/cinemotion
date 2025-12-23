@@ -10,7 +10,7 @@ abstract class TheMovieDbEntity {
   String get overview;
   double get popularity;
   String get posterPath;
-  DateTime get releaseDate;
+  DateTime? get releaseDate;
   String get title;
   bool get video;
   double get voteAverage;

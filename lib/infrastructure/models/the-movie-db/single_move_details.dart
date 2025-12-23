@@ -29,7 +29,7 @@ class SingleMovieDetails extends TheMovieDbEntity {
   final List<ProductionCompany> productionCompanies;
   final List<ProductionCountry> productionCountries;
   @override
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final int revenue;
   final int runtime;
   final List<SpokenLanguage> spokenLanguages;
@@ -98,7 +98,11 @@ class SingleMovieDetails extends TheMovieDbEntity {
     productionCountries: List<ProductionCountry>.from(
       json["production_countries"].map((x) => ProductionCountry.fromJson(x)),
     ),
-    releaseDate: DateTime.parse(json["release_date"]),
+    releaseDate:
+        json["release_date"] != null &&
+            json["release_date"].toString().isNotEmpty
+        ? DateTime.parse(json["release_date"])
+        : null,
     revenue: json["revenue"],
     runtime: json["runtime"],
     spokenLanguages: List<SpokenLanguage>.from(
@@ -134,8 +138,9 @@ class SingleMovieDetails extends TheMovieDbEntity {
     "production_countries": List<dynamic>.from(
       productionCountries.map((x) => x.toJson()),
     ),
-    "release_date":
-        "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+    "release_date": releaseDate != null
+        ? "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}"
+        : null,
     "revenue": revenue,
     "runtime": runtime,
     "spoken_languages": List<dynamic>.from(
