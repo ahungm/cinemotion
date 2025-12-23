@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:flutter/material.dart';
 
 // A delegate is used to an object or function used to separate responsibilities,
@@ -5,18 +7,28 @@ import 'package:flutter/material.dart';
 // of another, more complex object. This promotes cleaner, more modular, and reusable
 // code, especially when building UI interfaces
 
-class SearchMovieDelegate extends SearchDelegate {
+class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   String get searchFieldLabel => 'Buscar película';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [const Text('This is buildActions')];
+    return [
+      //
+      FadeIn(
+        animate: query.isNotEmpty,
+        duration: const Duration(milliseconds: 250),
+        child: IconButton(onPressed: () => query = '', icon: Icon(Icons.clear)),
+      ),
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return Text('This is buildLeading');
+    return IconButton(
+      onPressed: () => close(context, null),
+      icon: Icon(Icons.arrow_back_ios_new_rounded),
+    );
   }
 
   @override
