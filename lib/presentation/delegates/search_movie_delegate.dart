@@ -84,7 +84,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           itemCount: movies.length,
           itemBuilder: (context, index) {
             final Movie movie = movies[index];
-            return MovieSearchItem(movie: movie);
+            return MovieSearchItem(movie: movie, onMovieSelected: close);
           },
         );
       },
@@ -94,69 +94,77 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
 class MovieSearchItem extends StatelessWidget {
   final Movie movie;
+  final Function onMovieSelected;
 
-  const MovieSearchItem({super.key, required this.movie});
+  const MovieSearchItem({
+    super.key,
+    required this.movie,
+    required this.onMovieSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: EdgeInsetsGeometry.symmetric(vertical: 15, horizontal: 20),
-      child: Row(
-        children: [
-          SizedBox(
-            width: size.width * 0.2,
-            child: AspectRatio(
-              aspectRatio: 2.25 / 4,
-              child: ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(10),
-                child: Image.network(
-                  movie.posterPath,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) =>
-                      FadeIn(child: child),
+    return GestureDetector(
+      onTap: () => onMovieSelected(context, movie),
+      child: Padding(
+        padding: EdgeInsetsGeometry.symmetric(vertical: 15, horizontal: 20),
+        child: Row(
+          children: [
+            SizedBox(
+              width: size.width * 0.2,
+              child: AspectRatio(
+                aspectRatio: 2.25 / 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                  child: Image.network(
+                    movie.posterPath,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        FadeIn(child: child),
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: SizedBox(
-              width: size.width * 0.7,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    movie.title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  (movie.overview.length > 100)
-                      ? Text(
-                          textAlign: TextAlign.start,
-                          '${movie.overview.substring(0, 100)}...',
-                        )
-                      : Text(movie.overview),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      MovieRating(
-                        color: Colors.amber.shade900,
-                        rating: movie.voteAverage,
-                      ),
-                      const SizedBox(width: 15),
-                      const Icon(Icons.remove_red_eye_rounded, size: 18),
-                      const SizedBox(width: 5),
-                      MovieViews(viewsCount: movie.popularity),
-                    ],
-                  ),
-                ],
+            const SizedBox(width: 20),
+            Expanded(
+              child: SizedBox(
+                width: size.width * 0.7,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      movie.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    (movie.overview.length > 100)
+                        ? Text(
+                            textAlign: TextAlign.start,
+                            '${movie.overview.substring(0, 100)}...',
+                          )
+                        : Text(movie.overview),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        MovieRating(
+                          color: Colors.amber.shade900,
+                          rating: movie.voteAverage,
+                        ),
+                        const SizedBox(width: 15),
+                        const Icon(Icons.remove_red_eye_rounded, size: 18),
+                        const SizedBox(width: 5),
+                        MovieViews(viewsCount: movie.popularity),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
