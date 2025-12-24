@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_details.dart';
 import 'package:flutter/material.dart';
+import 'package:jumping_dot/jumping_dot.dart';
 
 // A delegate is used to an object or function used to separate responsibilities,
 // allowing one object to handle specific tasks, events, or layout logic on behalf
@@ -60,11 +62,21 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // a state manager to control automatically the
   // changes
   Widget buildSuggestions(BuildContext context) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
+
     return FutureBuilder(
       future: searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+            child: JumpingDots(
+              color: colors.primary,
+              innerPadding: 5,
+              radius: 10,
+              numberOfDots: 3,
+              animationDuration: const Duration(milliseconds: 200),
+            ),
+          );
         }
 
         final movies = snapshot.data ?? [];
@@ -87,15 +99,60 @@ class MovieSearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(20),
-        child: SizedBox(
-          height: 150,
-          width: 150,
-          child: Image.network(movie.posterPath),
-        ),
+    final Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsetsGeometry.symmetric(vertical: 15, horizontal: 20),
+      child: Row(
+        children: [
+          SizedBox(
+            width: size.width * 0.2,
+            child: ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(10),
+              child: Image.network(
+                movie.posterPath,
+                loadingBuilder: (context, child, loadingProgress) =>
+                    FadeIn(child: child),
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: SizedBox(
+              width: size.width * 0.7,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movie.title,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  (movie.overview.length > 100)
+                      ? Text(
+                          textAlign: TextAlign.start,
+                          '${movie.overview.substring(0, 100)}...',
+                        )
+                      : Text(movie.overview),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      MovieRating(
+                        color: Colors.amber.shade900,
+                        rating: movie.voteAverage,
+                      ),
+                      const SizedBox(width: 15),
+                      const Icon(Icons.remove_red_eye_rounded, size: 18),
+                      const SizedBox(width: 5),
+                      MovieViews(viewsCount: movie.popularity),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

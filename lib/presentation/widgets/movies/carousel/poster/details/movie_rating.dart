@@ -37,9 +37,10 @@ class _MovieVoteRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultStyle = style ?? Theme.of(context).textTheme.bodyMedium;
     return Text(
       HumanReadableFormat.formatNumber(voteCount),
-      style: style?.copyWith(color: color, fontWeight: FontWeight.bold),
+      style: defaultStyle?.copyWith(color: color, fontWeight: FontWeight.bold),
     );
   }
 }

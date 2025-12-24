@@ -14,12 +14,13 @@ dependencies:
   dio: ^5.9.0
   flutter:
     sdk: flutter
-  flutter_web_plugins:
-    sdk: flutter
   flutter_dotenv: ^6.0.0
   flutter_riverpod: ^3.0.3
+  flutter_web_plugins:
+    sdk: flutter
   go_router: ^16.2.4
   intl: ^0.20.2
+  jumping_dot: ^0.0.7
   riverpod_annotation: ^3.0.0
   riverpod_generator: ^3.0.0
 
@@ -31,13 +32,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # Assets must be indented under 'flutter:'
   assets:
     - .env
     - assets/images/
 
-fonts:
-  - family: Product-Sans
-    fonts:
-      - asset: fonts/Product-Sans-Regular.ttf
-      - asset: fonts/Product-Sans-Bold.ttf
-        weight: 700
+  # Fonts MUST be inside the 'flutter:' block and correctly indented
+  fonts:
+    - family: Product-Sans
+      fonts:
+        - asset: fonts/Product-Sans-Regular.ttf
+        - asset: fonts/Product-Sans-Bold.ttf
+          weight: 700

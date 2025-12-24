@@ -27,7 +27,7 @@ class PosterDetails extends StatelessWidget {
 
 List<Widget> _movieDetails({required Movie movie, TextTheme? style}) => [
   MovieRating(
-    color: Colors.amberAccent.shade700,
+    color: Colors.amber.shade900,
     rating: movie.voteAverage,
     style: style!.bodyMedium,
   ),

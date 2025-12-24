@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class HumanReadableFormat {
-  static String formatNumber<T extends num>(T number) {
+  static String formatNumber<T extends num>(T number, [int decimals = 0]) {
     // Local variable
 
     // TheMovieDB API returns numbers as decimals directly,
@@ -11,7 +11,7 @@ class HumanReadableFormat {
     );
 
     final String formattedNumber = NumberFormat.compactCurrency(
-      decimalDigits: 2,
+      decimalDigits: decimals,
       symbol: '',
       locale: 'en',
     ).format(correctedNumber);
