@@ -70,10 +70,33 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         final movies = snapshot.data ?? [];
         return ListView.builder(
           itemCount: movies.length,
-          itemBuilder: (context, index) =>
-              ListTile(title: Text(movies[index].title)),
+          itemBuilder: (context, index) {
+            final Movie movie = movies[index];
+            return MovieSearchItem(movie: movie);
+          },
         );
       },
+    );
+  }
+}
+
+class MovieSearchItem extends StatelessWidget {
+  final Movie movie;
+
+  const MovieSearchItem({super.key, required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topLeft,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(20),
+        child: SizedBox(
+          height: 150,
+          width: 150,
+          child: Image.network(movie.posterPath),
+        ),
+      ),
     );
   }
 }

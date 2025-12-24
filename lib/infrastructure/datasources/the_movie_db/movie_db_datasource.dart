@@ -78,7 +78,7 @@ class MovieDbDatasource implements MoviesDatasource {
   // Search Movies
   @override
   Future<List<Movie>> searchMovies(String query) async {
-    final String path = '/search/movie/$query';
+    final String path = '/search/movie';
     final Response response = await _getResponse(path, {'query': query});
     return _fromJsonToMovies(response.data);
   }

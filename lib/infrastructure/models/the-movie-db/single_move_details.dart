@@ -87,10 +87,10 @@ class SingleMovieDetails extends TheMovieDbEntity {
     id: json["id"],
     imdbId: json["imdb_id"],
     originCountry: List<String>.from(json["origin_country"].map((x) => x)),
-    originalLanguage: json["original_language"],
-    originalTitle: json["original_title"],
-    overview: json["overview"],
-    popularity: json["popularity"]?.toDouble(),
+    originalLanguage: json["original_language"] ?? '',
+    originalTitle: json["original_title"] ?? '',
+    overview: json["overview"] ?? '',
+    popularity: json["popularity"]?.toDouble() ?? 0,
     posterPath: json["poster_path"] ?? '',
     productionCompanies: List<ProductionCompany>.from(
       json["production_companies"].map((x) => ProductionCompany.fromJson(x)),
@@ -108,12 +108,12 @@ class SingleMovieDetails extends TheMovieDbEntity {
     spokenLanguages: List<SpokenLanguage>.from(
       json["spoken_languages"].map((x) => SpokenLanguage.fromJson(x)),
     ),
-    status: json["status"],
-    tagline: json["tagline"],
-    title: json["title"],
-    video: json["video"],
-    voteAverage: json["vote_average"]?.toDouble(),
-    voteCount: json["vote_count"],
+    status: json["status"] ?? '',
+    tagline: json["tagline"] ?? '',
+    title: json["title"] ?? '',
+    video: json["video"] ?? '',
+    voteAverage: json["vote_average"]?.toDouble() ?? 0,
+    voteCount: json["vote_count"] ?? 0,
   );
 
   @override
