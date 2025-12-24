@@ -107,12 +107,16 @@ class MovieSearchItem extends StatelessWidget {
         children: [
           SizedBox(
             width: size.width * 0.2,
-            child: ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(10),
-              child: Image.network(
-                movie.posterPath,
-                loadingBuilder: (context, child, loadingProgress) =>
-                    FadeIn(child: child),
+            child: AspectRatio(
+              aspectRatio: 2.25 / 4,
+              child: ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(10),
+                child: Image.network(
+                  movie.posterPath,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      FadeIn(child: child),
+                ),
               ),
             ),
           ),
