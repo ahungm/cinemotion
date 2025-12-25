@@ -25,6 +25,7 @@ typedef GetSelectedMovieCallback = Function(BuildContext context, Movie movie);
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // Attributes
   final GetMoviesCallback searchMovies;
+  final List<Movie> initialMovies;
 
   // It is used broadcast in order to support several listeners to
   // different widgets involved (delegate is always redrawn)
@@ -35,7 +36,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   Timer? _debounceTimer;
 
   // Constructor
-  SearchMovieDelegate({required this.searchMovies});
+  SearchMovieDelegate({
+    required this.searchMovies,
+    required this.initialMovies,
+  });
 
   // Methods / Functions
 
@@ -50,10 +54,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       // ! print('Cantidad de veces que se envía la peitción HTTP para buscar una película');
-      if (query.isEmpty) {
-        _debouncedMovies.add([]);
-        return;
-      }
+      // if (query.isEmpty) {
+      //   _debouncedMovies.add([]);
+      //   return;
+      // }
 
       final List<Movie> movies = await searchMovies(query);
       _debouncedMovies.add(movies);
@@ -105,11 +109,12 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
     return StreamBuilder(
       // future: searchMovies(query),
+      initialData: initialMovies,
       stream: _debouncedMovies.stream,
       builder: (context, snapshot) {
         // ! print ('Número de peticiones realizadas al servidor cada vez que se hace una búsqueda)
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          Center(
             child: JumpingDots(
               color: colors.primary,
               innerPadding: 5,
