@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/details/movie_details.dart';
@@ -23,8 +25,27 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // Attributes
   final GetMoviesCallback searchMovies;
 
+  // It is used broadcast in order to support several listeners to
+  // different widgets involved (delegate is always redrawn)
+
+  // Recommended and Overall way to define the StreamController
+  final StreamController<List<Movie>> _debouncedMovies =
+      StreamController.broadcast();
+  Timer? _debounceTimer;
+
   // Constructor
   SearchMovieDelegate({required this.searchMovies});
+
+  // Methods / Functions
+
+  void _onQueryChange(String query) {
+    // ! print('Cantidad de veces que cambia el query de búsqueda');
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      // ! print('Cantidad de veces que se envía la peitción HTTP para buscar una película');
+    });
+  }
 
   @override
   String get searchFieldLabel => 'Buscar película';
@@ -64,9 +85,13 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   Widget buildSuggestions(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
 
-    return FutureBuilder(
-      future: searchMovies(query),
+    _onQueryChange(query);
+
+    return StreamBuilder(
+      // future: searchMovies(query),
+      stream: _debouncedMovies.stream,
       builder: (context, snapshot) {
+        // ! print ('Número de peticiones realizadas al servidor cada vez que se hace una búsqueda)
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: JumpingDots(
