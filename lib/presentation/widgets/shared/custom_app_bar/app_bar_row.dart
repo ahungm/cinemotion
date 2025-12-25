@@ -1,6 +1,7 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/delegates/search_movie_delegate.dart';
 import 'package:cinemotion/presentation/providers/movies/movies_repository_provider.dart';
+import 'package:cinemotion/presentation/providers/search/search_movies_provider.dart';
 import 'package:cinemotion/presentation/widgets/shared/custom_app_bar/app_bar_icon.dart';
 import 'package:cinemotion/presentation/widgets/shared/custom_app_bar/app_bar_text.dart';
 import 'package:flutter/material.dart';
@@ -32,15 +33,20 @@ class SearchButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Define movieRepository available
     final movieRepository = ref.read(movieRepositoryProvider);
+    final searchQuery = ref.read(searchQueryProvider);
 
     return IconButton(
       icon: const Icon(Icons.search),
       onPressed: () async {
         // Execute the search
         final Movie? movie = await showSearch<Movie?>(
+          query: searchQuery,
           context: context,
           delegate: SearchMovieDelegate(
-            searchMovies: movieRepository.searchMovies,
+            searchMovies: (query) {
+              ref.read(searchQueryProvider.notifier).refreshQuery(query);
+              return movieRepository.searchMovies(query);
+            },
           ),
         );
 
