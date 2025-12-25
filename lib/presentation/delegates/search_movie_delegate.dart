@@ -20,6 +20,7 @@ import 'package:jumping_dot/jumping_dot.dart';
 // emit new values)
 
 typedef GetMoviesCallback = Future<List<Movie>> Function(String query);
+typedef GetSelectedMovieCallback = Function(BuildContext context, Movie movie);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // Attributes
@@ -38,12 +39,24 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   // Methods / Functions
 
+  void _clearStreams() {
+    _debouncedMovies.close();
+    _debounceTimer?.cancel();
+  }
+
   void _onQueryChange(String query) {
     // ! print('Cantidad de veces que cambia el query de búsqueda');
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       // ! print('Cantidad de veces que se envía la peitción HTTP para buscar una película');
+      if (query.isEmpty) {
+        _debouncedMovies.add([]);
+        return;
+      }
+
+      final List<Movie> movies = await searchMovies(query);
+      _debouncedMovies.add(movies);
     });
   }
 
@@ -68,7 +81,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () => close(context, null),
+      onPressed: () {
+        _clearStreams();
+        close(context, null);
+      },
       icon: Icon(Icons.arrow_back_ios_new_rounded),
     );
   }
@@ -109,7 +125,13 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           itemCount: movies.length,
           itemBuilder: (context, index) {
             final Movie movie = movies[index];
-            return MovieSearchItem(movie: movie, onMovieSelected: close);
+            return MovieSearchItem(
+              movie: movie,
+              onMovieSelected: (context, movie) {
+                _clearStreams();
+                close(context, movie);
+              },
+            );
           },
         );
       },
@@ -119,7 +141,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
 class MovieSearchItem extends StatelessWidget {
   final Movie movie;
-  final Function onMovieSelected;
+  final GetSelectedMovieCallback onMovieSelected;
 
   const MovieSearchItem({
     super.key,
