@@ -25,7 +25,7 @@ typedef GetSelectedMovieCallback = Function(BuildContext context, Movie movie);
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // Attributes
   final GetMoviesCallback searchMovies;
-  final List<Movie> initialMovies;
+  List<Movie> initialMovies;
 
   // It is used broadcast in order to support several listeners to
   // different widgets involved (delegate is always redrawn)
@@ -36,10 +36,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   Timer? _debounceTimer;
 
   // Constructor
-  SearchMovieDelegate({
-    required this.searchMovies,
-    required this.initialMovies,
-  });
+  SearchMovieDelegate({required this.searchMovies, required this.initialMovies})
+    : super(textInputAction: TextInputAction.done);
 
   // Methods / Functions
 
@@ -60,6 +58,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       // }
 
       final List<Movie> movies = await searchMovies(query);
+      initialMovies = movies;
       _debouncedMovies.add(movies);
     });
   }
@@ -95,7 +94,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('This is buildResults');
+    return _buildMovieSearchStream(context);
   }
 
   @override
@@ -103,12 +102,14 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   // a state manager to control automatically the
   // changes
   Widget buildSuggestions(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
-
     _onQueryChange(query);
 
+    return _buildMovieSearchStream(context);
+  }
+
+  Widget _buildMovieSearchStream(BuildContext context) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
     return StreamBuilder(
-      // future: searchMovies(query),
       initialData: initialMovies,
       stream: _debouncedMovies.stream,
       builder: (context, snapshot) {
