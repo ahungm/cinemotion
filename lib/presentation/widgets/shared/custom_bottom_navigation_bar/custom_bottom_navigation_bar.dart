@@ -1,5 +1,6 @@
 import 'package:cinemotion/presentation/widgets/shared/custom_bottom_navigation_bar/bottom_navigation_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({super.key});
@@ -10,8 +11,6 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int selectedIndex = 1;
-
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -22,9 +21,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      currentIndex: selectedIndex,
+      currentIndex: _getSelectedIndex(context),
       onTap: (newSelectedIndex) =>
-          setState(() => selectedIndex = newSelectedIndex),
+          onSelectedItemTapped(context, newSelectedIndex),
       elevation: 0,
       type: BottomNavigationBarType.fixed,
       items: [..._buildNavigationBarItems(tabs: tabs, scheme: colors)],
@@ -45,4 +44,36 @@ List<BottomNavigationBarItem> _buildNavigationBarItems({
       backgroundColor: scheme.primary,
     );
   }).toList();
+}
+
+void onSelectedItemTapped(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      context.go('/categories');
+      break;
+    case 1:
+      context.go('/');
+      break;
+    case 2:
+      context.go('/favorites');
+      break;
+  }
+}
+
+int _getSelectedIndex(BuildContext context) {
+  final String location = GoRouterState.of(context).matchedLocation;
+
+  switch (location) {
+    case '/categories':
+      return 0;
+
+    case '/':
+      return 1;
+
+    case '/favorites':
+      return 2;
+
+    default:
+      return 1;
+  }
 }
