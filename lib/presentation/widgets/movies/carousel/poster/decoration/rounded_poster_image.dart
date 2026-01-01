@@ -32,7 +32,7 @@ class RoundedPosterImage extends StatelessWidget {
                 (loadingProgress != null)
                 ? ImageProgressIndicator(loadingProgress: loadingProgress)
                 : GestureDetector(
-                    onTap: () => context.go('/movie/${movie.id}'),
+                    onTap: () => context.go('/home/1/movie/${movie.id}'),
                     child: FadeIn(child: child),
                   ),
           ),

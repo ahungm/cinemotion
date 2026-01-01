@@ -13,7 +13,7 @@ class MovieSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.go('/movie/${movie.id.toString()}'),
+      onTap: () => context.go('/home/1/movie/${movie.id.toString()}'),
       child: Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: MovieSlideDecoration(movie: movie),
