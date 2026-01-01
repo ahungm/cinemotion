@@ -9,11 +9,19 @@ class HomeRouter {
     path: routePath,
     name: HomeScreen.name,
     builder: (context, state) {
-      final pageIndex = int.tryParse(state.pathParameters['page'] ?? '1') ?? 1;
+      int pageIndex = int.tryParse(state.pathParameters['page'] ?? '1') ?? 1;
+
+      // Logic to keep it within bounds
+      if (pageIndex > 2 || pageIndex < 0) {
+        pageIndex = 1;
+      }
+
       return HomeScreen(pageIndex: pageIndex);
     },
     routes: [
-      MovieRouter.route, // Nesting the movie route here
+      // Ensure MovieRouter.route path is RELATIVE (e.g., 'movie/:id')
+      // so it stays inside the Shell/Home hierarchy
+      MovieRouter.route,
     ],
   );
 }
