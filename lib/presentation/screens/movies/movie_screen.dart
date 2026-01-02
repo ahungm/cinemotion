@@ -63,6 +63,12 @@ class CustomSliverAppBar extends StatelessWidget {
     final physicalDeviceSize = MediaQuery.of(context).size;
 
     return SliverAppBar(
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.favorite_border_outlined),
+        ),
+      ],
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: physicalDeviceSize.height * 0.70,
