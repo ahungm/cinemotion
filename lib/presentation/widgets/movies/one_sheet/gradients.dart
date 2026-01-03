@@ -13,6 +13,12 @@ List<Widget> gradients = [
     shadowValues: [0.0, 0.5],
     colors: [Colors.black26, Colors.transparent],
   ),
+  _GradientEffect(
+    beginOrientation: Alignment.topRight,
+    endOrientation: Alignment.bottomLeft,
+    shadowValues: [0.0, 0.4],
+    colors: [Colors.black45, Colors.transparent],
+  ),
 ];
 
 class _GradientEffect extends StatelessWidget {
