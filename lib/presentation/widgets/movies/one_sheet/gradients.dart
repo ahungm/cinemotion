@@ -17,7 +17,7 @@ List<Widget> gradients = [
     beginOrientation: Alignment.topRight,
     endOrientation: Alignment.bottomLeft,
     shadowValues: [0.0, 0.4],
-    colors: [Colors.black45, Colors.transparent],
+    colors: [Colors.black87, Colors.transparent],
   ),
 ];
 

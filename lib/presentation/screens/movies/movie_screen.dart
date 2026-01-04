@@ -1,6 +1,6 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/providers/providers.dart';
-import 'package:cinemotion/presentation/widgets/widgets.dart';
+import 'package:cinemotion/presentation/slivers/slivers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,40 +39,13 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
       body: CustomScrollView(
         physics:
             ClampingScrollPhysics(), // Avoid the image to have an elastic effect
-        slivers: [
-          CustomSliverAppBar(movie: movie),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => MovieDescription(movie: movie),
-              childCount: 1,
-            ),
-          ),
-        ],
+        slivers: [..._buildSlivers(movie: movie)],
       ),
     );
   }
 }
 
-class CustomSliverAppBar extends StatelessWidget {
-  final Movie movie;
-
-  const CustomSliverAppBar({super.key, required this.movie});
-
-  @override
-  Widget build(BuildContext context) {
-    final physicalDeviceSize = MediaQuery.of(context).size;
-
-    return SliverAppBar(
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.favorite_border_outlined),
-        ),
-      ],
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.white,
-      expandedHeight: physicalDeviceSize.height * 0.70,
-      flexibleSpace: MovieArea(movie: movie),
-    );
-  }
-}
+List<Widget> _buildSlivers({required Movie movie}) => [
+  CustomSliverAppBar(movie: movie),
+  MovieSliverList(movie: movie),
+];
