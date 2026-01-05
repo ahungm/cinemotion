@@ -22,9 +22,11 @@ class FavoriteMovies extends Table {
   TextColumn get posterPath => text().named('poster_path')();
   TextColumn get originalTitle => text().named('original_title')();
   TextColumn get title => text()();
-  RealColumn get voteAverage =>
-      real().named('vote_average').withDefault(const Constant(0.0))();
-  RealColumn get popularity => real().withDefault(const Constant(0.0))();
+  RealColumn get voteAverage => real()
+      .named('vote_average')
+      .withDefault(const Constant(0.0))(); // Optional value
+  RealColumn get popularity =>
+      real().withDefault(const Constant(0.0))(); // Optional value
 }
 
 @DriftDatabase(tables: [FavoriteMovies])
@@ -49,3 +51,6 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 }
+
+// Creation of the database instance (Object)
+final database = AppDatabase();
