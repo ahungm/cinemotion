@@ -49,15 +49,19 @@ class DriftDatasource implements LocalStorageDatasource {
   // Execute insertion
   Future<void> _addToFavorites(Movie movie) => defaultDatabase
       .into(defaultDatabase.favoriteMovies)
-      .insert(
-        FavoriteMoviesCompanion.insert(
-          movieId: movie.id,
-          backdropPath: movie.backdropPath,
-          posterPath: movie.posterPath,
-          originalTitle: movie.originalTitle,
-          title: movie.title,
-          voteAverage: drift.Value(movie.voteAverage),
-          popularity: drift.Value(movie.popularity),
-        ),
-      );
+      .insert(_mapToCompanion(movie));
+}
+
+// Separate translation logic from the database one
+FavoriteMoviesCompanion _mapToCompanion(Movie movie) {
+  return FavoriteMoviesCompanion.insert(
+    movieId: movie.id,
+    backdropPath: movie.backdropPath,
+    posterPath: movie.posterPath,
+    originalTitle: movie.originalTitle,
+    title: movie.title,
+    // Use drift.Value only if the column is optional/nullable in your Table definition
+    voteAverage: drift.Value(movie.voteAverage),
+    popularity: drift.Value(movie.popularity),
+  );
 }
