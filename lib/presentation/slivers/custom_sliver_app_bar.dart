@@ -13,7 +13,7 @@ class CustomSliverAppBar extends StatelessWidget {
     final physicalDeviceSize = MediaQuery.of(context).size;
 
     return SliverAppBar(
-      actions: _buildActions(),
+      actions: _buildActions(movie: movie),
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: physicalDeviceSize.height * 0.70,
@@ -22,7 +22,7 @@ class CustomSliverAppBar extends StatelessWidget {
   }
 }
 
-List<Widget>? _buildActions() => [
+List<Widget>? _buildActions({required Movie movie}) => [
   // List of associated widgets
-  FavoriteButton(),
+  FavoriteButton(movie: movie),
 ];
