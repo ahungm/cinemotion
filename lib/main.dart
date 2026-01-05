@@ -1,4 +1,3 @@
-import 'package:cinemotion/config/database/database.dart';
 import 'package:cinemotion/config/helpers/custom_scroll_behavior.dart';
 import 'package:flutter/material.dart';
 
@@ -21,25 +20,6 @@ Future<void> main() async {
 
 void _buildDatabaseConnection() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await database
-  //     .into(database.favoriteMovies)
-  //     .insert(
-  //       FavoriteMoviesCompanion.insert(
-  //         movieId: 1,
-  //         backdropPath: 'backdropPath.png',
-  //         posterPath: 'posterPath.png',
-  //         originalTitle: 'first',
-  //         title: 'primero',
-  //       ),
-  //     );
-
-  // Delete statement
-  final deleteQuery = database.delete(database.favoriteMovies);
-  await deleteQuery.go();
-
-  // Query to get movies
-  final movies = await database.select(database.favoriteMovies).get();
-  print('Peliculas: $movies');
 }
 
 class MainApp extends StatelessWidget {
