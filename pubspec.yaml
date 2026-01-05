@@ -4,7 +4,8 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ^3.8.0
+  # Changed from ^3.8.0 to a range that explicitly includes 3.9.2
+  sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
   drift: ^2.30.0
@@ -25,24 +26,27 @@ dependencies:
   intl: ^0.20.2
   jumping_dot: ^0.0.7
   riverpod_annotation: ^3.0.0
-  riverpod_generator: ^3.0.0
 
 dev_dependencies:
   drift_dev: ^2.30.0
+  # Keeping build_runner but we will handle its conflicts below
   build_runner: ^2.10.4
+  riverpod_generator: ^3.0.0 # Moved to dev_dependencies (best practice)
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
+# This section forces the conflicting packages to align with what the SDK expects
+dependency_overrides:
+  test_api: 0.7.6
+  matcher: 0.12.17
+
 flutter:
   uses-material-design: true
-
-  # Assets must be indented under 'flutter:'
   assets:
     - .env
     - assets/images/
 
-  # Fonts MUST be inside the 'flutter:' block and correctly indented
   fonts:
     - family: Product-Sans
       fonts:
