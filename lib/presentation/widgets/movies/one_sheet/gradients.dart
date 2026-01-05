@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 List<Widget> gradients = [
   _GradientEffect(
-    beginOrientation: Alignment.topCenter,
-    endOrientation: Alignment.bottomCenter,
     shadowValues: [0.7, 1.0],
     colors: [Colors.transparent, Colors.black87],
   ),
@@ -28,8 +26,8 @@ class _GradientEffect extends StatelessWidget {
   final List<Color> colors;
 
   const _GradientEffect({
-    required this.beginOrientation,
-    required this.endOrientation,
+    this.beginOrientation = Alignment.topCenter,
+    this.endOrientation = Alignment.bottomCenter,
     required this.shadowValues,
     required this.colors,
   });

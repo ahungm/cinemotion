@@ -7,6 +7,9 @@ environment:
   sdk: ^3.8.0
 
 dependencies:
+  drift: ^2.30.0
+  drift_flutter: ^0.2.8
+  path_provider: ^2.1.5
   animate_do: ^4.2.0
   animated_text_kit: ^4.3.0
   cached_network_image: ^3.4.1
@@ -25,6 +28,8 @@ dependencies:
   riverpod_generator: ^3.0.0
 
 dev_dependencies:
+  drift_dev: ^2.30.0
+  build_runner: ^2.10.4
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter

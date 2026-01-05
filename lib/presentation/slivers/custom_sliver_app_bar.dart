@@ -1,4 +1,5 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/slivers/favorite_button.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_area.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +13,7 @@ class CustomSliverAppBar extends StatelessWidget {
     final physicalDeviceSize = MediaQuery.of(context).size;
 
     return SliverAppBar(
-      actions: [
-        IconButton(
-          onPressed: () {},
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          iconSize: 40,
-          icon: Icon(Icons.favorite_border_outlined),
-        ),
-      ],
+      actions: _buildActions(),
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: physicalDeviceSize.height * 0.70,
@@ -27,3 +21,8 @@ class CustomSliverAppBar extends StatelessWidget {
     );
   }
 }
+
+List<Widget>? _buildActions() => [
+  // List of associated widgets
+  FavoriteButton(),
+];
