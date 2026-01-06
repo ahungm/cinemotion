@@ -1,24 +1,46 @@
+import 'package:cinemotion/config/helpers/custom_scroll_behavior.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MainApp());
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+
+import 'package:cinemotion/config/router/app_router.dart';
+import 'package:cinemotion/config/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+Future<void> main() async {
+  _buildDatabaseConnection();
+  await dotenv.load(fileName: '.env');
+  // usePathUrlStrategy();
+  runApp(
+    // Riverpod Implementation
+    const ProviderScope(child: MainApp()),
+  );
+}
+
+void _buildDatabaseConnection() async {
+  WidgetsFlutterBinding.ensureInitialized();
+}
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const _HomeView();
+    return const _AppView();
   }
 }
 
-class _HomeView extends StatelessWidget {
-  const _HomeView();
+class _AppView extends StatelessWidget {
+  const _AppView();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
+      scrollBehavior: CustomScrollBehavior(),
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+      theme: AppTheme().getTheme(),
     );
   }
 }

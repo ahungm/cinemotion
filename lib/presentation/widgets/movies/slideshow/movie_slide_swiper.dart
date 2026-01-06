@@ -1,0 +1,36 @@
+import 'package:card_swiper/card_swiper.dart';
+import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/widgets/movies/slideshow/movie_slide.dart';
+import 'package:flutter/material.dart';
+
+class MovieSlideSwiper extends StatelessWidget {
+  // Attributes
+  final List<Movie> movies;
+
+  // Constructor
+  const MovieSlideSwiper({super.key, required this.movies});
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
+
+    return Swiper(
+      scale: 0.9,
+      viewportFraction: 0.85,
+      autoplay: true,
+      pagination: _buildSwiperPagination(colors: colors),
+      itemCount: movies.length,
+      itemBuilder: (context, index) => MovieSlide(movie: movies[index]),
+    );
+  }
+}
+
+SwiperPlugin? _buildSwiperPagination({required ColorScheme colors}) =>
+    SwiperPagination(
+      alignment: Alignment(0, 1.25),
+      margin: EdgeInsets.only(top: 0),
+      builder: DotSwiperPaginationBuilder(
+        activeColor: colors.primary,
+        color: colors.secondary,
+      ),
+    );
