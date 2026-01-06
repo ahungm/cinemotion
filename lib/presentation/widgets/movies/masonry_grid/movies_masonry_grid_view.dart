@@ -23,6 +23,24 @@ class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
   final ScrollController scrollController = ScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(
+      () =>
+          (scrollController.position.pixels + 200 >=
+              scrollController.position.maxScrollExtent)
+          ? _loadNextPageMovies()
+          : null,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -46,4 +64,16 @@ class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
       MoviePosterLink(movie: widget.movies[index]),
     ],
   );
+
+  void _loadNextPageMovies() async {
+    if (isLoading || isLastPage || widget.loadNextPage == null) return;
+
+    isLoading = true;
+    final movies = await widget.loadNextPage!();
+    isLoading = false;
+
+    if (movies.isEmpty) {
+      isLastPage = true;
+    }
+  }
 }

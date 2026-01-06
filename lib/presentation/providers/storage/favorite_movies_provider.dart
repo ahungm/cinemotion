@@ -29,7 +29,7 @@ class StorageMoviesNotifier extends Notifier<Map<int, Movie>> {
       return;
     }
 
-    state = {...state, movie.id: movie}; // Add a new entry to the UI List
+    state = {movie.id: movie, ...state}; // Add a new entry to the UI List
   }
 
   Future<List<Movie>> loadNextPage() async {
