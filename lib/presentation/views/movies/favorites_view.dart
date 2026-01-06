@@ -1,5 +1,6 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/providers/storage/favorite_movies_provider.dart';
+import 'package:cinemotion/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,14 +25,6 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
     // Convert the map to a list in order to sweep the elements
     final List<Movie> movieList = favoriteMoviesMap.values.toList();
 
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: favoriteMoviesMap.keys.length,
-        itemBuilder: (BuildContext context, int index) {
-          final Movie movie = movieList[index];
-          return ListTile(title: Text('Nombre de la pelicula: ${movie.title}'));
-        },
-      ),
-    );
+    return Scaffold(body: MoviesMasonryGridView(movies: movieList));
   }
 }
