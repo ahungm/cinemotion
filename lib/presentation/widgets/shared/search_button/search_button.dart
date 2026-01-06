@@ -11,34 +11,36 @@ class SearchButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return IconButton(
+      icon: const Icon(Icons.search),
+      onPressed: () => openMovieSearchBar(context, ref),
+    );
+  }
+
+  static Future<void> openMovieSearchBar(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
     // Define movieRepository available
     final foundedMovies = ref.read(searchMoviesProvider);
     final searchQuery = ref.read(searchQueryProvider);
 
-    return IconButton(
-      icon: const Icon(Icons.search),
-      onPressed: () async {
-        // Execute the search
-        final Movie? movie = await showSearch<Movie?>(
-          query: searchQuery,
-          context: context,
-          delegate: SearchMovieDelegate(
-            initialMovies: foundedMovies,
-            searchMovies: ref
-                .read(searchMoviesProvider.notifier)
-                .searchMoviesByQuery,
-          ),
-        );
-
-        // Check if the widget is still referenced in the tree before using context
-        if (!context.mounted) return;
-
-        // Navigate if a movie was selected
-        if (movie != null) {
-          context.push('/home/1/movie/${movie.id}');
-        }
-      },
+    final Movie? movie = await showSearch<Movie?>(
+      query: searchQuery,
+      context: context,
+      delegate: SearchMovieDelegate(
+        initialMovies: foundedMovies,
+        searchMovies: ref
+            .read(searchMoviesProvider.notifier)
+            .searchMoviesByQuery,
+      ),
     );
+
+    if (!context.mounted) return;
+
+    if (movie != null) {
+      context.push('/home/1/movie/${movie.id}');
+    }
   }
 }
 
