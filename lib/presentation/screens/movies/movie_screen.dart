@@ -13,7 +13,7 @@ class MovieScreen extends ConsumerStatefulWidget {
   const MovieScreen({super.key, required this.movieId});
 
   @override
-  MovieScreenState createState() => MovieScreenState();
+  ConsumerState<MovieScreen> createState() => MovieScreenState();
 }
 
 class MovieScreenState extends ConsumerState<MovieScreen> {

@@ -35,7 +35,7 @@ class SearchButton extends ConsumerWidget {
 
         // Navigate if a movie was selected
         if (movie != null) {
-          context.push('/home/1/movie/${movie.id.toString()}');
+          context.push('/home/1/movie/${movie.id}');
         }
       },
     );
