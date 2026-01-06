@@ -20,7 +20,8 @@ class MovieSearchList extends StatelessWidget {
         final movie = movies[index];
         return MovieSearchItem(
           movie: movie,
-          onMovieSelected: (context, movie) => moviesCallback,
+          // Execute the callback correctly
+          onMovieSelected: (context, movie) => moviesCallback(context, movie),
         );
       },
     );

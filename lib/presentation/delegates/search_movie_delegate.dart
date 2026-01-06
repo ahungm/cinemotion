@@ -21,77 +21,55 @@ import 'package:flutter/material.dart';
 typedef GetMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
-  // Attributes
   final GetMoviesCallback searchMovies;
   List<Movie> initialMovies;
 
-  // It is used broadcast in order to support several listeners to
-  // different widgets involved (delegate is always redrawn)
-
-  // Recommended and Overall way to define the StreamController
   final StreamController<List<Movie>> _debouncedMovies =
       StreamController.broadcast();
   final StreamController<bool> _isLoadingStream = StreamController.broadcast();
   Timer? _debounceTimer;
 
-  // Constructor
   SearchMovieDelegate({required this.searchMovies, required this.initialMovies})
     : super(textInputAction: TextInputAction.done);
 
-  // Methods / Functions
-
-  @override
-  void dispose() {
-    _debouncedMovies.close();
-    _isLoadingStream.close();
-    _debounceTimer?.cancel();
-    super.dispose();
-  }
-
-  void _clearStreams() {
-    _debouncedMovies.close();
-    _isLoadingStream.close();
-    _debounceTimer?.cancel();
-  }
-
   void _onQueryChange(String query) {
-    // As soon as the person begins to type, it is necessary
-    // to emit the isLoadingStream, adding true and/or false values
-    // in the general sequence of events or data that flows over time
-
     _isLoadingStream.add(true);
-
-    // ! print('Cantidad de veces que cambia el query de búsqueda');
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      // ! print('Cantidad de veces que se envía la peitción HTTP para buscar una película');
-
-      final List<Movie> movies = await searchMovies(query);
+      final movies = await searchMovies(query);
       initialMovies = movies;
-      _debouncedMovies.add(movies);
-
-      // Add a false value to the isLoadingStream to display the
-      // delete search icon
-      _isLoadingStream.add(false);
+      if (!_debouncedMovies.isClosed) {
+        _debouncedMovies.add(movies);
+        _isLoadingStream.add(false);
+      }
     });
   }
 
   @override
-  String get searchFieldLabel => 'Buscar película';
+  void dispose() {
+    _debounceTimer?.cancel();
+    _debouncedMovies.close();
+    _isLoadingStream.close();
+    super.dispose();
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [ActionStreamBuilder(stream: _isLoadingStream.stream, query: query)];
+    return [
+      ActionStreamBuilder(
+        stream: _isLoadingStream.stream,
+        isQueryEmpty: query.isEmpty,
+        onClearQuery: () =>
+            query = '', // This works here because it's inside the Delegate
+      ),
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        _clearStreams();
-        close(context, null);
-      },
+      onPressed: () => close(context, null),
       icon: const Icon(Icons.arrow_back_ios_new_rounded),
     );
   }
@@ -99,28 +77,23 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   Widget buildResults(BuildContext context) {
     _onQueryChange(query);
-    return _buildMovieSearchStream(context);
+    return _buildMovieSearchStream();
   }
 
   @override
-  // Always that a 'build' exist, it can be invoked
-  // a state manager to control automatically the
-  // changes
   Widget buildSuggestions(BuildContext context) {
     _onQueryChange(query);
-    return _buildMovieSearchStream(context);
+    return _buildMovieSearchStream();
   }
 
-  Widget _buildMovieSearchStream(BuildContext context) {
+  Widget _buildMovieSearchStream() {
     return MovieSearchResults(
       stream: _debouncedMovies.stream,
       initialData: initialMovies,
       onMovieSelected: (context, movie) {
-        _clearStreams(); // Clean up memory
-        close(
-          context,
-          movie,
-        ); // Return the result to the caller and close the stream
+        // DO NOT call _clearStreams() here.
+        // The dispose() method handles it when the delegate closes.
+        close(context, movie);
       },
     );
   }
