@@ -91,8 +91,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       stream: _debouncedMovies.stream,
       initialData: initialMovies,
       onMovieSelected: (context, movie) {
-        // DO NOT call _clearStreams() here.
-        // The dispose() method handles it when the delegate closes.
+        // The dispose() method handles it when the delegate closes
         close(context, movie);
       },
     );

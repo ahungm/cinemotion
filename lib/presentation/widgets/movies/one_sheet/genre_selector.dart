@@ -1,4 +1,5 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/domain/entities/movie/value_objects/genre.dart';
 import 'package:flutter/material.dart';
 
 class GenreSelector extends StatelessWidget {
@@ -11,23 +12,19 @@ class GenreSelector extends StatelessWidget {
     return Wrap(
       spacing: 15.0, // Space between chips
       runSpacing: 5.0,
-      children: movie.genres
-          .map(
-            (genre) => Chip(
-              // We access the name directly from the Genre object inside the Movie
-              label: Text(
-                genre.name,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          )
-          .toList(),
+      children: movie.genres.map((genre) => _buildChip(genre)).toList(),
     );
   }
 }
+
+// Inner Methods
+Chip _buildChip(Genre genre) => Chip(
+  // We access the name directly from the Genre object inside the Movie
+  label: _buildGenreTitle(genre.name),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+);
+
+Text _buildGenreTitle(String text) => Text(
+  text,
+  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+);
