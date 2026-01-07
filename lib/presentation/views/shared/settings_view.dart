@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'settings.dart';
+
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
@@ -9,8 +11,10 @@ class SettingsView extends StatelessWidget {
       appBar: AppBar(title: Text('Configuraciones')),
       body: ListView(
         physics: ClampingScrollPhysics(),
-        children: [ListTile(title: Text('Hola'))],
+        children: _buildListElements(),
       ),
     );
   }
 }
+
+List<Widget> _buildListElements() => [DisplayModeTile()];

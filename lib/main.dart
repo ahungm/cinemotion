@@ -1,4 +1,5 @@
 import 'package:cinemotion/config/helpers/custom_scroll_behavior.dart';
+import 'package:cinemotion/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,16 +32,18 @@ class MainApp extends StatelessWidget {
   }
 }
 
-class _AppView extends StatelessWidget {
+class _AppView extends ConsumerWidget {
   const _AppView();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AppTheme appTheme = ref.watch(themeNotifierProvider);
+
     return MaterialApp.router(
       scrollBehavior: CustomScrollBehavior(),
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme().getTheme(),
+      theme: appTheme.getTheme(),
     );
   }
 }
