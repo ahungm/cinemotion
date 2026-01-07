@@ -17,16 +17,24 @@ class MoviePosterSheet extends StatelessWidget {
         width: size.width * 0.3,
         fit: BoxFit.cover,
         // Loading placeholder to prevent layout shifts
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Container(
-            width: size.width * 0.3,
-            height: size.width * 0.45,
-            color: Colors.black12,
-            child: const Center(child: CircularProgressIndicator()),
-          );
-        },
+        loadingBuilder: _loadBuilder,
       ),
     );
   }
+
+  Widget _loadBuilder(
+    BuildContext context,
+    Widget child,
+    ImageChunkEvent? loadingProgress,
+  ) {
+    if (loadingProgress == null) return child;
+    return _buildProgressIndicator(size);
+  }
 }
+
+Widget _buildProgressIndicator(Size size) => Container(
+  width: size.width * 0.3,
+  height: size.width * 0.45,
+  color: Colors.black12,
+  child: const Center(child: CircularProgressIndicator()),
+);

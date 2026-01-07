@@ -11,15 +11,17 @@ class EmptyFavoriteMoviesScaffold extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.favorite, size: 50, color: Colors.blueGrey),
-            const SizedBox(height: 30),
-            const EmptyFavoriteMoviesMessage(),
-            const SizedBox(height: 20),
-            const SearchTonalButton(),
-          ],
+          children: _emptyFavoritesScaffold,
         ),
       ),
     );
   }
 }
+
+List<Widget> _emptyFavoritesScaffold = [
+  Icon(Icons.favorite, size: 50, color: Colors.blueGrey),
+  const SizedBox(height: 30),
+  const EmptyFavoriteMoviesMessage(),
+  const SizedBox(height: 20),
+  const SearchTonalButton(),
+];

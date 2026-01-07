@@ -17,9 +17,9 @@ class BottomNavigationTab {
   // Static Method
   static List<BottomNavigationTab> get tabs => [
     BottomNavigationTab(
-      icon: NavigationBarIcon(data: Icons.category_outlined),
-      activeIcon: NavigationBarIcon(data: Icons.category),
-      label: 'Categories',
+      icon: NavigationBarIcon(data: Icons.thumbs_up_down_outlined),
+      activeIcon: NavigationBarIcon(data: Icons.thumbs_up_down),
+      label: 'Populars',
     ),
     BottomNavigationTab(
       icon: NavigationBarIcon(data: Icons.home_outlined),

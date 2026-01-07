@@ -13,31 +13,23 @@ class EmptyFavoriteMoviesMessage extends StatelessWidget {
 }
 
 final List<Widget> _content = [
-  _buildText(
-    text: 'Ohh no !!',
-    align: TextAlign.center,
-    fontWeight: FontWeight.bold,
-    fontSize: 30,
-    fontColor: Colors.blueGrey,
-  ),
+  _buildText(text: 'Ohh no !!', fontWeight: FontWeight.bold, fontSize: 30),
   const SizedBox(height: 20),
   _buildText(
     text: 'Aún no has agregado películas como favoritas',
-    align: TextAlign.center,
     maxLines: 2,
     fontWeight: FontWeight.w600,
     fontSize: 20,
-    fontColor: Colors.blueGrey,
   ),
 ];
 
 // Inner Methods
 Widget _buildText({
   required String text,
-  TextAlign? align,
+  TextAlign? align = TextAlign.center,
   FontWeight? fontWeight,
   double? fontSize,
-  Color? fontColor,
+  Color? fontColor = Colors.blueGrey,
   int? maxLines,
 }) => Text(
   text,

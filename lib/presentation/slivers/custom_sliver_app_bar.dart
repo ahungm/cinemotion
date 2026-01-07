@@ -1,6 +1,6 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/slivers/favorite_button.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_area.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/movie_area.dart';
 import 'package:flutter/material.dart';
 
 class CustomSliverAppBar extends StatelessWidget {

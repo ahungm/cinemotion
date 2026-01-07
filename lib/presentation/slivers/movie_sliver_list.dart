@@ -1,5 +1,5 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/movie_description.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/data/movie_description.dart';
 import 'package:flutter/material.dart';
 
 class MovieSliverList extends StatelessWidget {
