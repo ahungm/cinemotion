@@ -9,3 +9,5 @@ export 'actors/actors_by_movie_provider.dart';
 
 export 'search/search_query_provider.dart';
 export 'search/search_movies_provider.dart';
+
+export 'shared/date_provider.dart';

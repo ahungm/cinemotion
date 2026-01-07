@@ -31,5 +31,10 @@ class BottomNavigationTab {
       activeIcon: NavigationBarIcon(data: Icons.favorite),
       label: 'Favorites',
     ),
+    BottomNavigationTab(
+      icon: NavigationBarIcon(data: Icons.settings_outlined),
+      activeIcon: NavigationBarIcon(data: Icons.settings),
+      label: 'Favorites',
+    ),
   ];
 }

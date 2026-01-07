@@ -12,7 +12,7 @@ class HomeRouter {
       int pageIndex = int.tryParse(state.pathParameters['page'] ?? '1') ?? 1;
 
       // Logic to keep it within bounds
-      if (pageIndex > 2 || pageIndex < 0) {
+      if (pageIndex > 3 || pageIndex < 0) {
         pageIndex = 1;
       }
 
