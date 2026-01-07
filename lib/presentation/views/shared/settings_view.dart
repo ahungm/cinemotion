@@ -5,6 +5,12 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text('Configuraciones')));
+    return Scaffold(
+      appBar: AppBar(title: Text('Configuraciones')),
+      body: ListView(
+        physics: ClampingScrollPhysics(),
+        children: [ListTile(title: Text('Hola'))],
+      ),
+    );
   }
 }
