@@ -22,12 +22,26 @@ class SettingsTile extends ConsumerWidget {
     final bool isDarkModeEnabled = appTheme.isDarkModeEnabled;
 
     return ListTile(
-      leading: Icon(isDarkModeEnabled ? Icons.dark_mode : item.icon),
+      leading: _buildLeadingIcon(isDarkModeEnabled),
       title: Text(item.title),
       subtitle: Text(item.subtitle!),
       splashColor: colors.primary,
       trailing: Icon(Icons.arrow_forward_ios_rounded),
       onTap: () => context.push('/home/3/${item.url}'),
     );
+  }
+
+  // Inner Methods
+  Widget _buildLeadingIcon(bool isDarkModeEnabled) {
+    // Variable to store leading icon of the item tile
+    final Widget leadingIcon;
+
+    // Only change to dark mode icon if this specific tile is for Appearance
+    if (item.url.contains('appearance')) {
+      leadingIcon = Icon(isDarkModeEnabled ? Icons.dark_mode : item.icon);
+    } else {
+      leadingIcon = Icon(item.icon); // Use the default icon for Language, etc.
+    }
+    return leadingIcon;
   }
 }

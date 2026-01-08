@@ -18,9 +18,15 @@ class SettingsItem {
 
 const List<SettingsItem> settingsMenuItems = [
   SettingsItem(
-    title: 'Cambiar Apariencia',
+    title: 'Apariencia',
     icon: Icons.light_mode,
     subtitle: 'Cambiar el color del tema de la aplicación',
-    url: 'settings',
+    url: 'settings/appearance',
+  ),
+  SettingsItem(
+    title: 'Idioma',
+    icon: Icons.language,
+    subtitle: 'Cambiar el idioma de la aplicación',
+    url: 'settings/language',
   ),
 ];

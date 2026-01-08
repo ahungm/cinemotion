@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'enum/appearance_mode.dart';
 
 class AppearanceModeTile extends ConsumerStatefulWidget {
-  static const name = 'display_mode_tile';
+  static const name = 'appearance_mode_tile';
 
   const AppearanceModeTile({super.key});
 
