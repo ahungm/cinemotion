@@ -1,3 +1,4 @@
+import 'package:cinemotion/config/theme/themes.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -11,15 +12,7 @@ class AppTheme {
   ThemeData getTheme() => ThemeData(
     // ThemeData parameters
     useMaterial3: true,
-    colorScheme: isDarkModeEnabled
-        ? ColorScheme.dark(
-            primary: const Color.fromARGB(255, 220, 9, 108),
-            secondary: const Color.fromARGB(241, 253, 212, 212),
-          )
-        : ColorScheme.light(
-            primary: const Color.fromARGB(255, 220, 9, 108),
-            secondary: const Color.fromARGB(241, 253, 212, 212),
-          ),
+    colorScheme: isDarkModeEnabled ? darkModeScheme : lightModeScheme,
     fontFamily: 'Product-Sans',
   );
 

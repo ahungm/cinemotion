@@ -1,1 +1,1 @@
-export 'display/display_mode_tile.dart';
+export 'appearance/appearance_mode_tile.dart';

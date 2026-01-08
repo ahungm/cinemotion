@@ -22,6 +22,7 @@ class HomeRouter {
       // Ensure MovieRouter.route path is RELATIVE (e.g., 'movie/:id')
       // so it stays inside the Shell/Home hierarchy
       MovieRouter.route,
+      SettingsRouter.route,
     ],
   );
 }
