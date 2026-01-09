@@ -24,7 +24,7 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
   bool isMenuPressed = false;
 
   final Text _title = Text(
-    'Popular Movies',
+    'Películas Populares',
     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
   );
 

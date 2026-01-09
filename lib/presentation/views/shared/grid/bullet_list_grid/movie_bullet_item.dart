@@ -31,7 +31,7 @@ class MovieBulletItem extends StatelessWidget {
 Row _buildInnerRow({required Movie movie}) => Row(
   children: [
     MoviePosterGrid(movie: movie),
-    const SizedBox(width: 10),
+    const SizedBox(width: 17.5),
     _buildTitle(text: movie.title),
     const SizedBox(width: 5),
     MovieTileData(movie: movie),

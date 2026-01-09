@@ -13,15 +13,14 @@ class MoviePosterGrid extends StatelessWidget {
     return SizedBox(
       width: 75,
       height: 100,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: shadows,
-          ),
-          child: MovieGridLink(imageUrl: movie.posterPath, borderRadius: 5),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: shadows,
         ),
+        child: MovieGridLink(imageUrl: movie.posterPath, borderRadius: 5),
       ),
     );
   }
