@@ -1,11 +1,11 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/masonry_grid/movie_poster_link.dart';
+import 'package:cinemotion/presentation/views/shared/grid/masonry_grid/movie_poster_link.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class MoviesMasonryGridView extends StatefulWidget {
   final List<Movie> movies;
-  final Future<List<Movie>> Function()? loadNextPage;
+  final VoidCallback? loadNextPage;
 
   const MoviesMasonryGridView({
     super.key,
@@ -18,8 +18,6 @@ class MoviesMasonryGridView extends StatefulWidget {
 }
 
 class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
-  bool isLastPage = false;
-  bool isLoading = false;
   final ScrollController scrollController = ScrollController();
 
   @override
@@ -27,9 +25,9 @@ class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
     super.initState();
     scrollController.addListener(
       () =>
-          (scrollController.position.pixels + 200 >=
+          (scrollController.position.pixels + 100 >=
               scrollController.position.maxScrollExtent)
-          ? _loadNextPageMovies()
+          ? widget.loadNextPage!()
           : null,
     );
   }
@@ -64,16 +62,4 @@ class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
       MoviePosterLink(movie: widget.movies[index]),
     ],
   );
-
-  void _loadNextPageMovies() async {
-    if (isLoading || isLastPage || widget.loadNextPage == null) return;
-
-    isLoading = true;
-    final movies = await widget.loadNextPage!();
-    isLoading = false;
-
-    if (movies.isEmpty) {
-      isLastPage = true;
-    }
-  }
 }

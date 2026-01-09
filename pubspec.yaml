@@ -47,6 +47,7 @@ flutter:
   assets:
     - .env
     - assets/images/
+    - assets/loaders/
 
   fonts:
     - family: Product-Sans

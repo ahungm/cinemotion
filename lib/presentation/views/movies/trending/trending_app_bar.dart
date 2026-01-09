@@ -16,6 +16,9 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
   //  State variable
   bool isMenuPressed = false;
 
+  // Index - Menu Item variable
+  int selectedIndex = 0;
+
   final Text _title = Text(
     'Popular Movies',
     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -28,7 +31,10 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: _changeTrendingViewButtons(),
+        children: [
+          ..._changeTrendingViewButtons(),
+          const SizedBox(height: 100),
+        ],
       ),
     );
   }
@@ -44,9 +50,11 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
 
   // Inner Methods
   Widget _buildLayoutButton() {
+    final ColorScheme colors = Theme.of(context).colorScheme;
     return IconButton(
       onPressed: () => setState(() => isMenuPressed = true),
       icon: const Icon(Icons.menu),
+      color: colors.primary,
     );
   }
 
@@ -58,18 +66,32 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
   }
 
   List<Widget> get _options => [
-    _buildLayoutOption(icon: Icons.format_list_bulleted_rounded),
-    _buildLayoutOption(icon: Icons.dashboard),
-    _buildLayoutOption(icon: Icons.grid_view_outlined),
+    _buildLayoutOption(icon: Icons.format_list_bulleted_rounded, index: 0),
+    _buildLayoutOption(icon: Icons.dashboard, index: 1),
+    _buildLayoutOption(icon: Icons.grid_view_outlined, index: 2),
   ];
 
-  Widget _buildLayoutOption({required IconData icon}) {
-    return IconButton(onPressed: () => _selectOption(), icon: Icon(icon));
+  Widget _buildLayoutOption({required IconData icon, required int index}) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
+
+    return IconButton.filled(
+      style: IconButton.styleFrom(
+        backgroundColor: selectedIndex == index
+            ? colors.secondary
+            : Colors.transparent,
+      ),
+      color: colors.primary,
+      onPressed: () => _selectOption(index),
+      icon: Icon(
+        icon, // Apply color here
+      ),
+    );
   }
 
   // Handle the selection and revert the icon
-  void _selectOption() {
+  void _selectOption(int index) {
     setState(() {
+      selectedIndex = index;
       isMenuPressed = false;
     });
   }

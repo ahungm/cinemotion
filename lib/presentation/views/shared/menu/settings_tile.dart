@@ -25,7 +25,7 @@ class SettingsTile extends ConsumerWidget {
       leading: _buildLeadingIcon(isDarkModeEnabled),
       title: Text(item.title),
       subtitle: Text(item.subtitle!),
-      splashColor: colors.primary,
+      splashColor: colors.secondary,
       trailing: Icon(Icons.arrow_forward_ios_rounded),
       onTap: () => context.push('/home/3/${item.url}'),
     );
