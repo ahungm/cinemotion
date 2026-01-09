@@ -11,11 +11,12 @@ class MovieIcons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         MovieRating(color: Colors.amber.shade900, rating: movie.voteAverage),
         const SizedBox(width: 15),
-        const Icon(Icons.remove_red_eye_rounded, size: 18),
-        const SizedBox(width: 5),
         MovieViews(viewsCount: movie.popularity),
       ],
     );

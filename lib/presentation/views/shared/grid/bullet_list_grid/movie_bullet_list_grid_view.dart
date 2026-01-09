@@ -41,6 +41,7 @@ class _MovieBulletListGridViewState extends State<MovieBulletListGridView> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: scrollController,
       itemCount: widget.movies.length,
       itemBuilder: (context, index) {
         return MovieBulletItem(movie: widget.movies[index]);

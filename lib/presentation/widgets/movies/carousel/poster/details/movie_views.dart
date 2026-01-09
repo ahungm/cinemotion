@@ -9,12 +9,17 @@ class MovieViews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      HumanReadableFormat.formatNumber(viewsCount),
-      style: style?.copyWith(
-        color: Colors.black54,
-        fontWeight: FontWeight.bold,
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Icon(Icons.remove_red_eye_rounded, size: 18),
+        const SizedBox(width: 5),
+        Text(
+          HumanReadableFormat.formatNumber(viewsCount),
+          style: style?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

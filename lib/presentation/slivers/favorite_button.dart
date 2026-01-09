@@ -6,8 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FavoriteButton extends ConsumerWidget {
   final Movie movie;
+  final double size;
 
-  const FavoriteButton({super.key, required this.movie});
+  const FavoriteButton({super.key, required this.movie, required this.size});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +24,7 @@ class FavoriteButton extends ConsumerWidget {
         ); // Avoid using autoDispose in the FutureProvider (only use this latter option if it is not necessary to keep the state after quit from the screen)
       },
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      iconSize: 40,
+      iconSize: size,
       icon: checkFavoriteFuture.when(
         data: (isFavorite) => _displayFavoriteState(isFavorite),
         error: (_, _) =>

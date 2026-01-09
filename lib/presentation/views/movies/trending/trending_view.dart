@@ -1,8 +1,7 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/providers/providers.dart';
 import 'package:cinemotion/presentation/views/movies/trending/trending_app_bar.dart';
-import 'package:cinemotion/presentation/views/shared/grid/masonry_grid/movies_masonry_grid_view.dart';
-import 'package:cinemotion/presentation/views/shared/grid/mesh_grid/movie_mesh_grid_view.dart';
+import 'package:cinemotion/presentation/views/shared/grid/grids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,7 +25,7 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
     return SafeArea(
       child: Scaffold(
         appBar: TrendingAppBar(),
-        body: MovieMeshGridView(
+        body: MovieBulletListGridView(
           movies: popularMovies,
           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
         ),

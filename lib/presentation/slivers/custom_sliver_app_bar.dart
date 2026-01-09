@@ -24,5 +24,5 @@ class CustomSliverAppBar extends StatelessWidget {
 
 List<Widget>? _buildActions({required Movie movie}) => [
   // List of associated widgets
-  FavoriteButton(movie: movie),
+  FavoriteButton(movie: movie, size: 40),
 ];
