@@ -38,3 +38,13 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
 //           movies: popularMovies,
 //           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
 //         )
+
+// MovieBulletListGridView(
+//           movies: popularMovies,
+//           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+//         )
+
+// MovieMeshGridView(
+//           movies: popularMovies,
+//           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+//         )

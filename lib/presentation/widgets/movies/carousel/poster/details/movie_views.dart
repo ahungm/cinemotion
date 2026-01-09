@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 class MovieViews extends StatelessWidget {
   final double viewsCount;
   final TextStyle? style;
+  final double? iconSize;
 
-  const MovieViews({super.key, required this.viewsCount, this.style});
+  const MovieViews({
+    super.key,
+    required this.viewsCount,
+    this.style,
+    this.iconSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,7 @@ class MovieViews extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Icon(Icons.remove_red_eye_rounded, size: 18),
+        Icon(Icons.remove_red_eye_rounded, size: iconSize),
         const SizedBox(width: 5),
         Text(
           HumanReadableFormat.formatNumber(viewsCount),

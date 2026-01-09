@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/views/shared/grid/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,34 +26,13 @@ class MovieGridCell extends StatelessWidget {
         // Apply the BoxShadow to the outside of the frame (container)
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(50, 50, 93, 0.25),
-              blurRadius: 5,
-              spreadRadius: -1,
-              offset: Offset(0, 2),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
-              blurRadius: 3,
-              spreadRadius: -1,
-              offset: Offset(0, 1),
-            ),
-          ],
+          boxShadow: shadows,
         ),
-        child: ClipRRect(
-          // Content (Image)
-          borderRadius: BorderRadius.circular(10),
-          child: GestureDetector(
-            onTap: () => context.push('/home/0/movie/${movie.id}'),
-            child: FadeInImage(
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              placeholderFit: BoxFit.scaleDown,
-              placeholder: const AssetImage('assets/loaders/film_reel.gif'),
-              image: NetworkImage(movie.posterPath),
-            ),
+        child: GestureDetector(
+          onTap: () => context.push('/home/0/movie/${movie.id}'),
+          child: MovieGridLink(
+            imageUrl: movie.posterPath,
+            width: double.infinity,
           ),
         ),
       ),
