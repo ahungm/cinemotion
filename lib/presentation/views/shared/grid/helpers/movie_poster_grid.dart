@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:flutter/material.dart';
 

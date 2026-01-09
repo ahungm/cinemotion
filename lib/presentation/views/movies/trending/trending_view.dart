@@ -13,6 +13,8 @@ class TrendingView extends ConsumerStatefulWidget {
 }
 
 class _TrendingViewState extends ConsumerState<TrendingView> {
+  int selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -24,27 +26,41 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
     final List<Movie> popularMovies = ref.watch(popularMoviesProvider);
     return SafeArea(
       child: Scaffold(
-        appBar: TrendingAppBar(),
-        body: MovieBulletListGridView(
-          movies: popularMovies,
-          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+        appBar: TrendingAppBar(
+          selectedIndex: selectedIndex,
+          onViewChanged: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
         ),
+        body: _buildView(index: selectedIndex, movies: popularMovies),
       ),
     );
   }
+
+  Widget _buildView({required int index, required List<Movie> movies}) {
+    switch (index) {
+      case 0:
+        return MovieBulletListGridView(
+          movies: movies,
+          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+        );
+      case 1:
+        return MoviesMasonryGridView(
+          movies: movies,
+          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+        );
+      case 2:
+        return MovieMeshGridView(
+          movies: movies,
+          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+        );
+      default:
+        return MovieBulletListGridView(
+          movies: movies,
+          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+        );
+    }
+  }
 }
-
-// MoviesMasonryGridView(
-//           movies: popularMovies,
-//           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-//         )
-
-// MovieBulletListGridView(
-//           movies: popularMovies,
-//           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-//         )
-
-// MovieMeshGridView(
-//           movies: popularMovies,
-//           loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-//         )

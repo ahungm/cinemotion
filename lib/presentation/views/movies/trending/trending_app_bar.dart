@@ -3,7 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TrendingAppBar extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
-  const TrendingAppBar({super.key});
+  final ValueChanged<int>? onViewChanged;
+  final int selectedIndex;
+
+  const TrendingAppBar({
+    super.key,
+    required this.onViewChanged,
+    required this.selectedIndex,
+  });
 
   @override
   ConsumerState<TrendingAppBar> createState() => _TrendingAppBarState();
@@ -15,9 +22,6 @@ class TrendingAppBar extends ConsumerStatefulWidget
 class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
   //  State variable
   bool isMenuPressed = false;
-
-  // Index - Menu Item variable
-  int selectedIndex = 0;
 
   final Text _title = Text(
     'Popular Movies',
@@ -76,7 +80,7 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
 
     return IconButton.filled(
       style: IconButton.styleFrom(
-        backgroundColor: selectedIndex == index
+        backgroundColor: widget.selectedIndex == index
             ? colors.secondary
             : Colors.transparent,
       ),
@@ -91,8 +95,8 @@ class _TrendingAppBarState extends ConsumerState<TrendingAppBar> {
   // Handle the selection and revert the icon
   void _selectOption(int index) {
     setState(() {
-      selectedIndex = index;
       isMenuPressed = false;
     });
+    widget.onViewChanged?.call(index);
   }
 }
