@@ -47,4 +47,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
   Future<List<Video>> getVideosById(int movieId) {
     return datasource.getVideosById(movieId);
   }
+
+  @override
+  Future<List<Movie>> getRelatedMovies({required int id}) {
+    return datasource.getRelatedMovies(id: id);
+  }
 }

@@ -97,6 +97,16 @@ class MovieDbDatasource implements MoviesDatasource {
     return videos;
   }
 
+  // Get Related Movies By Movie Id
+
+  @override
+  Future<List<Movie>> getRelatedMovies({required int id}) async {
+    final String path = '/movie/$id/similar';
+    final Response response = await dio.get(path);
+    final List<Movie> movies = _fromJsonToMovies(response.data);
+    return movies;
+  }
+
   // Methods
   Future<Response> _getResponse(
     String endpoint, [
@@ -131,8 +141,16 @@ class MovieDbDatasource implements MoviesDatasource {
     );
 
     final List<Video> videos = response.details
+        .where((video) => video.site.toLowerCase() == 'youtube')
         .map((video) => VideoMapper.theMovieDbVideoToEntity(video))
         .toList();
     return videos;
   }
 }
+
+    // for (final moviedbVideo in moviedbVideosReponse.results) {
+    //   if ( moviedbVideo.site == 'YouTube' ) {
+    //     final video = VideoMapper.moviedbVideoToEntity(moviedbVideo);
+    //     videos.add(video);
+    //   }
+    // }
