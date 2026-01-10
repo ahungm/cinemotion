@@ -31,7 +31,7 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
     }
 
     return Scaffold(
-      body: MoviesMasonryGridView(
+      body: MovieMasonryGridView(
         movies: movieList,
         loadNextPage: ref.read(favoriteMoviesProvider.notifier).loadNextPage,
       ),

@@ -28,11 +28,7 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
       child: Scaffold(
         appBar: TrendingAppBar(
           selectedIndex: selectedIndex,
-          onViewChanged: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
+          onViewChanged: (index) => setState(() => selectedIndex = index),
         ),
         body: _buildView(index: selectedIndex, movies: popularMovies),
       ),
@@ -40,27 +36,10 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
   }
 
   Widget _buildView({required int index, required List<Movie> movies}) {
-    switch (index) {
-      case 0:
-        return MovieBulletListGridView(
-          movies: movies,
-          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-        );
-      case 1:
-        return MoviesMasonryGridView(
-          movies: movies,
-          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-        );
-      case 2:
-        return MovieMeshGridView(
-          movies: movies,
-          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-        );
-      default:
-        return MovieBulletListGridView(
-          movies: movies,
-          loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
-        );
-    }
+    return ConcreteMovieGridViewFactory.create(
+      index: index,
+      movies: movies,
+      loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
+    );
   }
 }

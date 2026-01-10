@@ -33,7 +33,7 @@ Row _buildInnerRow({required Movie movie}) => Row(
     MoviePosterGrid(movie: movie),
     const SizedBox(width: 17.5),
     _buildTitle(text: movie.title),
-    const SizedBox(width: 5),
+    const SizedBox(width: 15),
     MovieTileData(movie: movie),
   ],
 );

@@ -1,44 +1,28 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/views/shared/grid/mesh_grid/movie_grid_cell.dart';
+import 'package:cinemotion/presentation/views/shared/grid/movie_grid_view.dart';
 import 'package:flutter/material.dart';
 
-class MovieMeshGridView extends StatefulWidget {
-  final List<Movie> movies;
-  final VoidCallback? loadNextPage;
+// Strategy implementation
 
+class MovieMeshGridView extends MovieGridView<Movie> {
   const MovieMeshGridView({
     super.key,
-    required this.movies,
-    required this.loadNextPage,
+    required super.movies,
+    super.loadNextPage,
   });
 
   @override
   State<MovieMeshGridView> createState() => _MovieMeshGridViewState();
 }
 
-class _MovieMeshGridViewState extends State<MovieMeshGridView> {
-  final ScrollController scrollController = ScrollController();
-
+class _MovieMeshGridViewState
+    extends MovieGridViewState<Movie, MovieMeshGridView> {
   @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(
-      () =>
-          (scrollController.position.pixels + 100 >=
-              scrollController.position.maxScrollExtent)
-          ? widget.loadNextPage!()
-          : null,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    scrollController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildGridContent(
+    BuildContext context,
+    ScrollController scrollController,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 17.5),
       child: GridView.builder(

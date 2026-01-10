@@ -1,15 +1,14 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/views/shared/grid/bullet_list_grid/movie_bullet_item.dart';
+import 'package:cinemotion/presentation/views/shared/grid/movie_grid_view.dart';
 import 'package:flutter/material.dart';
 
-class MovieBulletListGridView extends StatefulWidget {
-  final List<Movie> movies;
-  final VoidCallback? loadNextPage;
-
+// Strategy implementation
+class MovieBulletListGridView extends MovieGridView<Movie> {
   const MovieBulletListGridView({
     super.key,
-    required this.movies,
-    this.loadNextPage,
+    required super.movies,
+    super.loadNextPage,
   });
 
   @override
@@ -17,29 +16,13 @@ class MovieBulletListGridView extends StatefulWidget {
       _MovieBulletListGridViewState();
 }
 
-class _MovieBulletListGridViewState extends State<MovieBulletListGridView> {
-  final scrollController = ScrollController();
-
+class _MovieBulletListGridViewState
+    extends MovieGridViewState<Movie, MovieBulletListGridView> {
   @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(
-      () =>
-          scrollController.position.pixels + 100 >=
-              scrollController.position.maxScrollExtent
-          ? widget.loadNextPage!()
-          : null,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    scrollController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildGridContent(
+    BuildContext context,
+    ScrollController scrollController,
+  ) {
     return ListView.builder(
       controller: scrollController,
       itemCount: widget.movies.length,

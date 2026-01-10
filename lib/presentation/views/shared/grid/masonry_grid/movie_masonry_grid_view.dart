@@ -1,45 +1,28 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/views/shared/grid/masonry_grid/movie_poster_link.dart';
+import 'package:cinemotion/presentation/views/shared/grid/movie_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class MoviesMasonryGridView extends StatefulWidget {
-  final List<Movie> movies;
-  final VoidCallback? loadNextPage;
-
-  const MoviesMasonryGridView({
+// Strategy implementation
+class MovieMasonryGridView extends MovieGridView<Movie> {
+  const MovieMasonryGridView({
     super.key,
-    required this.movies,
-    this.loadNextPage,
+    required super.movies,
+    super.loadNextPage,
   });
 
   @override
-  State<MoviesMasonryGridView> createState() => _MoviesMasonryGridViewState();
+  State<MovieMasonryGridView> createState() => _MoviesMasonryGridViewState();
 }
 
-class _MoviesMasonryGridViewState extends State<MoviesMasonryGridView> {
-  final ScrollController scrollController = ScrollController();
-
+class _MoviesMasonryGridViewState
+    extends MovieGridViewState<Movie, MovieMasonryGridView> {
   @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(
-      () =>
-          (scrollController.position.pixels + 100 >=
-              scrollController.position.maxScrollExtent)
-          ? widget.loadNextPage!()
-          : null,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    scrollController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildGridContent(
+    BuildContext context,
+    ScrollController scrollController,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: MasonryGridView.count(
