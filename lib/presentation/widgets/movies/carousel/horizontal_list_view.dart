@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/widgets/movies/carousel/movie_title_row.dart';
 import 'package:cinemotion/presentation/widgets/movies/carousel/poster/decoration/movie_poster.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +8,15 @@ class HorizontalListView extends StatefulWidget {
   // Attributes
   final List<Movie> movies;
   final VoidCallback? loadNextPage;
+  final String? title;
+  final String? subtitle;
 
   const HorizontalListView({
     super.key,
     required this.movies,
     this.loadNextPage,
+    this.title,
+    this.subtitle,
   });
 
   @override
@@ -43,15 +48,26 @@ class _HorizontalListViewState extends State<HorizontalListView> {
   // Build Method
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        controller: scrollController,
-        itemCount: widget.movies.length,
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return FadeInRight(child: MoviePoster(movie: widget.movies[index]));
-        },
+    return SizedBox(
+      height: 350,
+      child: Column(
+        children: [
+          if (widget.title != null || widget.subtitle != null)
+            MovieTitleRow(title: widget.title, subtitle: widget.subtitle),
+          Expanded(
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: widget.movies.length,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return FadeInRight(
+                  child: MoviePoster(movie: widget.movies[index]),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

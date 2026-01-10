@@ -28,7 +28,7 @@ Widget _showRecommendedMovies(List<Movie> movies) {
           ),
         ),
         const SizedBox(height: 20),
-        SizedBox(height: 300, child: HorizontalListView(movies: movies)),
+        SizedBox(height: 350, child: HorizontalListView(movies: movies)),
       ],
     ),
   );

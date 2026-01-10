@@ -29,7 +29,15 @@ class MovieCarousel extends StatelessWidget {
       child: Column(
         children: [
           CarouselHeader(title: mainTitle, subtitle: displayDate),
-          HorizontalListView(movies: movies, loadNextPage: loadNextPage),
+          Expanded(
+            child: SizedBox(
+              height: 350,
+              child: HorizontalListView(
+                movies: movies,
+                loadNextPage: loadNextPage,
+              ),
+            ),
+          ),
         ],
       ),
     );

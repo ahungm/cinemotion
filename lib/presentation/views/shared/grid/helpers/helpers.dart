@@ -6,15 +6,15 @@ export 'package:cinemotion/presentation/views/shared/grid/helpers/movie_poster_g
 
 final List<BoxShadow> shadows = [
   BoxShadow(
-    color: Color.fromRGBO(50, 50, 93, 0.25),
-    blurRadius: 5,
-    spreadRadius: -1,
-    offset: Offset(0, 2),
+    color: Color.fromRGBO(0, 0, 0, 0.16),
+    blurRadius: 6,
+    spreadRadius: 0,
+    offset: Offset(0, 3),
   ),
   BoxShadow(
-    color: Color.fromRGBO(0, 0, 0, 0.3),
-    blurRadius: 3,
-    spreadRadius: -1,
-    offset: Offset(0, 1),
+    color: Color.fromRGBO(0, 0, 0, 0.23),
+    blurRadius: 6,
+    spreadRadius: 0,
+    offset: Offset(0, 3),
   ),
 ];
