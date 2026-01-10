@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    pageController = PageController(keepPage: true);
+    pageController = PageController(initialPage: 1, keepPage: true);
   }
 
   @override
