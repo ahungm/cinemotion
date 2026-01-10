@@ -1,6 +1,7 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/data/movie_caption.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/data/movie_content.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/data/movie_release_date.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/movie_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +29,16 @@ List<Widget> _buildMovieData({
   required TextTheme texTheme,
 }) => [
   MovieCaption(movie: movie, style: texTheme),
+
   const SizedBox(height: 10),
+
   MovieIcons(movie: movie),
+
   const SizedBox(height: 15),
+
+  MovieReleaseDate(movie: movie),
+
+  const SizedBox(height: 15),
+
   MovieContent(movie: movie, style: texTheme),
 ];

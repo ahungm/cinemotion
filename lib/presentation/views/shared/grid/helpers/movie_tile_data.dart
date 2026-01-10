@@ -11,7 +11,7 @@ class MovieTileData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 63,
+      width: 65,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

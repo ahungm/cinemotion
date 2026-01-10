@@ -35,7 +35,7 @@ List<Widget> _buildContent(Movie movie) => [
 
   VideosFromMovie(id: movie.id),
 
-  const SizedBox(height: 20),
+  const SizedBox(height: 30),
 
   RelatedMovies(id: movie.id),
 ];

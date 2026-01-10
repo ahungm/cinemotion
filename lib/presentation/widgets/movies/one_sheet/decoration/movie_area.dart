@@ -1,4 +1,5 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/gradients.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/movie_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +10,29 @@ class MovieArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return FlexibleSpaceBar(
+      titlePadding: const EdgeInsets.only(bottom: 0),
       centerTitle: true,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-      background: MovieSheet(movie: movie),
+      background: Stack(
+        fit: StackFit.expand, // Ensures children fill the entire area
+        children: [
+          MovieSheet(movie: movie),
+          // Apply overlay
+          _buildGradientOverlay(scaffoldColor: scaffoldBackgroundColor),
+        ],
+      ),
     );
   }
+}
+
+// Inner Methods
+Widget _buildGradientOverlay({required Color scaffoldColor}) {
+  return GradientEffect(
+    beginOrientation: Alignment.topCenter,
+    endOrientation: Alignment.bottomCenter,
+    shadowValues: const [0.7, 1.0],
+    colors: [Colors.transparent, scaffoldColor],
+  );
 }

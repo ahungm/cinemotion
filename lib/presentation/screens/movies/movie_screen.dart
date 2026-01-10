@@ -38,7 +38,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
     return Scaffold(
       body: CustomScrollView(
         physics:
-            ClampingScrollPhysics(), // Avoid the image to have an elastic effect
+            const ClampingScrollPhysics(), // Avoid the image to have an elastic effect
         slivers: [..._buildSlivers(movie: movie)],
       ),
     );

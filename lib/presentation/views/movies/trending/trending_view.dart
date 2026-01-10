@@ -12,7 +12,8 @@ class TrendingView extends ConsumerStatefulWidget {
   ConsumerState<TrendingView> createState() => _TrendingViewState();
 }
 
-class _TrendingViewState extends ConsumerState<TrendingView> {
+class _TrendingViewState extends ConsumerState<TrendingView>
+    with AutomaticKeepAliveClientMixin {
   int selectedIndex = 0;
 
   @override
@@ -23,6 +24,7 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final List<Movie> popularMovies = ref.watch(popularMoviesProvider);
     return SafeArea(
       child: Scaffold(
@@ -42,4 +44,7 @@ class _TrendingViewState extends ConsumerState<TrendingView> {
       loadNextPage: ref.read(popularMoviesProvider.notifier).loadNextPage,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

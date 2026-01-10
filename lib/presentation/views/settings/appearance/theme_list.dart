@@ -1,4 +1,4 @@
-import 'package:cinemotion/presentation/views/shared/appearance/enum/appearance_mode.dart';
+import 'package:cinemotion/presentation/views/settings/appearance/enum/appearance_mode.dart';
 import 'package:flutter/material.dart';
 
 class ThemeList extends StatelessWidget {

@@ -10,6 +10,8 @@ class GenreSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      alignment: WrapAlignment.start,
       spacing: 15.0, // Space between chips
       runSpacing: 5.0,
       children: movie.genres.map((genre) => _buildChip(genre)).toList(),

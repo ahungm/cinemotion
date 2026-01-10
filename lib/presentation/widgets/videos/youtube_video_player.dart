@@ -58,7 +58,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
         hideControls: true,
         showLiveFullscreenButton: false,
         mute: false,
-        autoPlay: true,
+        autoPlay: false,
         disableDragSeek: true,
         loop: false,
         isLive: false,

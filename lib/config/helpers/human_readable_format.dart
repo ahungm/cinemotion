@@ -18,4 +18,9 @@ class HumanReadableFormat {
 
     return formattedNumber;
   }
+
+  static String shortDate({required DateTime date}) {
+    final format = DateFormat.yMMMEd('es');
+    return format.format(date);
+  }
 }

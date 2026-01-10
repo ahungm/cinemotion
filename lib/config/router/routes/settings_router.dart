@@ -1,5 +1,5 @@
-import 'package:cinemotion/presentation/views/shared/settings.dart';
-import 'package:cinemotion/presentation/views/shared/settings_view.dart';
+import 'package:cinemotion/presentation/views/settings/settings.dart';
+import 'package:cinemotion/presentation/views/settings/settings_view.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingsRouter {

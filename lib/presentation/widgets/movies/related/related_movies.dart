@@ -1,8 +1,6 @@
 import 'package:cinemotion/presentation/providers/movies/related_movies_provider.dart';
 import 'package:cinemotion/presentation/widgets/movies/related/suggestions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RelatedMovies extends ConsumerWidget {

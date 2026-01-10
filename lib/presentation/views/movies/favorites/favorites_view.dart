@@ -12,7 +12,8 @@ class FavoritesView extends ConsumerStatefulWidget {
   ConsumerState<FavoritesView> createState() => FavoritesViewState();
 }
 
-class FavoritesViewState extends ConsumerState<FavoritesView> {
+class FavoritesViewState extends ConsumerState<FavoritesView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -21,6 +22,7 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final Map<int, Movie> favoriteMoviesMap = ref.watch(favoriteMoviesProvider);
 
     // Convert the map to a list in order to sweep the elements
@@ -37,4 +39,7 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

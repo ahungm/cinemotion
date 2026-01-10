@@ -1,5 +1,5 @@
 import 'package:cinemotion/presentation/providers/theme/theme_notifier.dart';
-import 'package:cinemotion/presentation/views/shared/appearance/theme_list.dart';
+import 'package:cinemotion/presentation/views/settings/appearance/theme_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

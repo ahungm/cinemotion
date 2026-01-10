@@ -14,7 +14,8 @@ class HomeView extends ConsumerStatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends ConsumerState<HomeView> {
+class HomeViewState extends ConsumerState<HomeView>
+    with AutomaticKeepAliveClientMixin {
   bool _forceLoading = true;
   Timer? _loadingTimer;
 
@@ -46,6 +47,7 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final hasData =
         ref.watch(popularMoviesProvider).isNotEmpty ||
         ref.watch(nowPlayingMoviesProvider).isNotEmpty ||
@@ -69,4 +71,7 @@ class HomeViewState extends ConsumerState<HomeView> {
     HomeSliverAppBar(),
     HomeSliverList(),
   ];
+
+  @override
+  bool get wantKeepAlive => true;
 }
