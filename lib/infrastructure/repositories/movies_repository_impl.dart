@@ -1,5 +1,6 @@
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
-import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/domain/entities/entities.dart';
+
 import 'package:cinemotion/domain/repositories/movies_repository.dart';
 
 class MoviesRepositoryImpl implements MoviesRepository {
@@ -40,5 +41,10 @@ class MoviesRepositoryImpl implements MoviesRepository {
   @override
   Future<List<Movie>> searchMovies(String query) {
     return datasource.searchMovies(query);
+  }
+
+  @override
+  Future<List<Video>> getVideosById(int movieId) {
+    return datasource.getVideosById(movieId);
   }
 }

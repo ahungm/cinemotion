@@ -1,11 +1,14 @@
 import 'package:cinemotion/constants/environment.dart';
 import 'package:cinemotion/domain/datasources/movies_datasource.dart';
-import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemotion/infrastructure/mappers/video_mapper.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/movie_from_the_movie_db.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/single_move_details.dart';
 import 'package:cinemotion/infrastructure/models/the-movie-db/the_movie_db_response_dto.dart';
+import 'package:cinemotion/infrastructure/models/the-movie-db/the_movie_db_videos_response.dart';
 import 'package:dio/dio.dart';
+
+import '../../../domain/entities/entities.dart';
 
 // Datasource created to manage all the interactions with
 // The Movie DB API
@@ -85,6 +88,15 @@ class MovieDbDatasource implements MoviesDatasource {
     return _fromJsonToMovies(response.data);
   }
 
+  // Get Videos By Id
+  @override
+  Future<List<Video>> getVideosById(int movieId) async {
+    final String path = '/movie/$movieId/videos';
+    final Response response = await dio.get(path);
+    final List<Video> videos = _fromJsonToVideos(response.data);
+    return videos;
+  }
+
   // Methods
   Future<Response> _getResponse(
     String endpoint, [
@@ -111,5 +123,16 @@ class MovieDbDatasource implements MoviesDatasource {
         )
         .toList();
     return movies;
+  }
+
+  List<Video> _fromJsonToVideos(Map<String, dynamic> jsonResponse) {
+    TheMovieDbVideosResponse response = TheMovieDbVideosResponse.fromJson(
+      jsonResponse,
+    );
+
+    final List<Video> videos = response.details
+        .map((video) => VideoMapper.theMovieDbVideoToEntity(video))
+        .toList();
+    return videos;
   }
 }

@@ -1,4 +1,4 @@
-import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/domain/entities/entities.dart';
 
 abstract class MoviesRepository {
   // The repository would access to the domain entities by
@@ -9,4 +9,5 @@ abstract class MoviesRepository {
   Future<List<Movie>> getTopRated({int page = 1});
   Future<Movie> getMovieById({required String id});
   Future<List<Movie>> searchMovies(String query);
+  Future<List<Video>> getVideosById(int movieId);
 }
