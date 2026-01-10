@@ -1,6 +1,6 @@
 import 'package:cinemotion/domain/entities/actor/actor.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/actors_carousel/actor_profile_image.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/actors_carousel/actor_role.dart';
+import 'package:cinemotion/presentation/widgets/actors/actors_carousel/actor_profile_image.dart';
+import 'package:cinemotion/presentation/widgets/actors/actors_carousel/actor_role.dart';
 import 'package:flutter/cupertino.dart';
 
 class HorizontalScrollView extends StatelessWidget {

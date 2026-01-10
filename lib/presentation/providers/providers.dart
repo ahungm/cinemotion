@@ -13,3 +13,5 @@ export 'search/search_movies_provider.dart';
 export 'shared/date_provider.dart';
 
 export 'theme/theme_notifier.dart';
+
+export 'videos/videos_from_movies_provider.dart';

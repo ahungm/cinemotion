@@ -1,7 +1,8 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
-import 'package:cinemotion/presentation/widgets/movies/one_sheet/actors_carousel/actors_by_movie_carousel.dart';
+import 'package:cinemotion/presentation/widgets/actors/actors_carousel/actors_by_movie_carousel.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/genre_selector.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/movie_row.dart';
+import 'package:cinemotion/presentation/widgets/videos/videos_from_movie.dart';
 import 'package:flutter/material.dart';
 
 class MovieContentDescription extends StatelessWidget {
@@ -28,6 +29,10 @@ List<Widget> _buildContent(Movie movie) => [
   const SizedBox(height: 20),
 
   ActorsByMovieCarousel(movieId: movie.id.toString()),
+
+  const SizedBox(height: 10),
+
+  VideosFromMovie(id: movie.id),
 
   const SizedBox(height: 50),
 ];

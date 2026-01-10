@@ -90,7 +90,7 @@ class MovieDbDatasource implements MoviesDatasource {
 
   // Get Videos By Id
   @override
-  Future<List<Video>> getVideosById(int movieId) async {
+  Future<List<Video>> getYoutubeVideosById(int movieId) async {
     final String path = '/movie/$movieId/videos';
     final Response response = await dio.get(path);
     final List<Video> videos = _fromJsonToVideos(response.data);
