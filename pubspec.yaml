@@ -27,9 +27,9 @@ dependencies:
   jumping_dot: ^0.0.7
   path_provider: ^2.1.5
   riverpod_annotation: ^3.0.0
+  youtube_player_flutter: ^9.1.3
 
 dev_dependencies:
-  # Keeping build_runner but we will handle its conflicts below
   build_runner: ^2.10.4
   drift_dev: ^2.30.0
   flutter_lints: ^6.0.0
@@ -47,6 +47,7 @@ flutter:
   assets:
     - .env
     - assets/images/
+    - assets/loaders/
 
   fonts:
     - family: Product-Sans

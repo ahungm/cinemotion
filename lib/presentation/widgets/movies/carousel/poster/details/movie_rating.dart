@@ -5,19 +5,24 @@ class MovieRating extends StatelessWidget {
   final Color color;
   final double rating;
   final TextStyle? style;
+  final double? iconSize;
 
   const MovieRating({
     super.key,
     required this.color,
     required this.rating,
     this.style,
+    this.iconSize,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _MovieRatingIcon(color: color),
+        _MovieRatingIcon(color: color, size: iconSize),
+        const SizedBox(width: 5),
         _MovieVoteRating(voteCount: rating, color: color, style: style),
       ],
     );
@@ -47,10 +52,11 @@ class _MovieVoteRating extends StatelessWidget {
 
 class _MovieRatingIcon extends StatelessWidget {
   final Color color;
-  const _MovieRatingIcon({required this.color});
+  final double? size;
+  const _MovieRatingIcon({required this.color, this.size});
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.star_half_rounded, color: color);
+    return Icon(Icons.star_half_rounded, color: color, size: size);
   }
 }

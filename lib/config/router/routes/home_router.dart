@@ -12,16 +12,20 @@ class HomeRouter {
       int pageIndex = int.tryParse(state.pathParameters['page'] ?? '1') ?? 1;
 
       // Logic to keep it within bounds
-      if (pageIndex > 2 || pageIndex < 0) {
-        pageIndex = 1;
-      }
+      pageIndex = _checkPageIndexBound(index: pageIndex);
 
       return HomeScreen(pageIndex: pageIndex);
     },
     routes: [
-      // Ensure MovieRouter.route path is RELATIVE (e.g., 'movie/:id')
+      // Ensure MovieRouter.route path is relative (e.g., 'movie/:id')
       // so it stays inside the Shell/Home hierarchy
       MovieRouter.route,
+      SettingsRouter.route,
+      RedirectRouter.route,
     ],
   );
+}
+
+int _checkPageIndexBound({required int index}) {
+  return (index > 3 || index < 0) ? index = 1 : index;
 }

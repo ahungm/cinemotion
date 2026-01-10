@@ -1,4 +1,5 @@
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/domain/entities/video/video.dart';
 
 // API Requests (Endpoints)
 
@@ -10,4 +11,6 @@ abstract class MoviesDatasource {
   Future<List<Movie>> getTopRated({int page = 1});
   Future<Movie> getMovieById({required String id});
   Future<List<Movie>> searchMovies(String query);
+  Future<List<Video>> getYoutubeVideosById(int movieId);
+  Future<List<Movie>> getRelatedMovies({required int id});
 }

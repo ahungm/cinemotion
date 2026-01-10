@@ -5,7 +5,7 @@ import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/delegates/helpers/movie_delegates.dart';
 import 'package:flutter/material.dart';
 
-// A delegate is used to an object or function used to separate responsibilities,
+// A delegate is used to an object or function used to separate responsabilities,
 // allowing one object to handle specific tasks, events, or layout logic on behalf
 // of another, more complex object. This promotes cleaner, more modular, and reusable
 // code, especially when building UI interfaces
@@ -30,7 +30,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   Timer? _debounceTimer;
 
   SearchMovieDelegate({required this.searchMovies, required this.initialMovies})
-    : super(textInputAction: TextInputAction.done);
+    : super(
+        searchFieldLabel: 'Buscar películas',
+        // textInputAction: TextInputAction.done,
+      );
 
   void _onQueryChange(String query) {
     _isLoadingStream.add(true);
@@ -91,8 +94,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       stream: _debouncedMovies.stream,
       initialData: initialMovies,
       onMovieSelected: (context, movie) {
-        // DO NOT call _clearStreams() here.
-        // The dispose() method handles it when the delegate closes.
+        // The dispose() method handles it when the delegate closes
         close(context, movie);
       },
     );
