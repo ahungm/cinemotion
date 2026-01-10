@@ -7,7 +7,6 @@ export 'package:cinemotion/presentation/views/shared/grid/masonry_grid/movie_mas
 // Video Related Widgets
 
 export 'package:cinemotion/presentation/widgets/videos/video_list.dart';
-export 'package:cinemotion/presentation/widgets/videos/video_thumbnail.dart';
 export 'package:cinemotion/presentation/widgets/videos/videos_from_movie.dart';
 
 // General Shared Widgets

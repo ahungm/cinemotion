@@ -2,6 +2,7 @@ import 'package:cinemotion/domain/entities/movie/movie.dart';
 import 'package:cinemotion/presentation/widgets/actors/actors_carousel/actors_by_movie_carousel.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/genre_selector.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/movie_row.dart';
+import 'package:cinemotion/presentation/widgets/movies/related/related_movies.dart';
 import 'package:cinemotion/presentation/widgets/videos/videos_from_movie.dart';
 import 'package:flutter/material.dart';
 
@@ -34,5 +35,8 @@ List<Widget> _buildContent(Movie movie) => [
 
   VideosFromMovie(id: movie.id),
 
+  const SizedBox(height: 20),
+
+  RelatedMovies(id: movie.id),
   const SizedBox(height: 50),
 ];
