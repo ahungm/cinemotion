@@ -16,11 +16,11 @@ class MovieArea extends StatelessWidget {
       titlePadding: const EdgeInsets.only(bottom: 0),
       centerTitle: true,
       background: Stack(
-        fit: StackFit.expand, // Ensures children fill the entire area
+        fit: StackFit.expand,
         children: [
-          MovieSheet(movie: movie),
-          // Apply overlay
+          // Move the overlay before the sheet background so it is behind it
           _buildGradientOverlay(scaffoldColor: scaffoldBackgroundColor),
+          MovieSheet(movie: movie),
         ],
       ),
     );
