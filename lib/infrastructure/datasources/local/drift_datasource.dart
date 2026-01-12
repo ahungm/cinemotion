@@ -14,8 +14,8 @@ class DriftDatasource implements LocalStorageDatasource {
   Future<void> toggleFavoriteMovie(Movie movie) async {
     final isAlreadyFavorite = await isFavoriteMovie(movie.id);
     isAlreadyFavorite
-        ? await _removeFromFavorites(id: movie.id)
-        : await _addToFavorites(movie);
+        ? await removeFromFavorites(id: movie.id)
+        : await addToFavorites(movie);
   }
 
   @override
@@ -70,7 +70,7 @@ class DriftDatasource implements LocalStorageDatasource {
   }
 
   // Helper Methods
-  Future<void> _removeFromFavorites({required int id}) {
+  Future<void> removeFromFavorites({required int id}) {
     final deleteQuery = defaultDatabase.delete(defaultDatabase.favoriteMovies)
       ..where((table) => table.movieId.equals(id));
 
@@ -79,7 +79,7 @@ class DriftDatasource implements LocalStorageDatasource {
   }
 
   // Execute insertion
-  Future<void> _addToFavorites(Movie movie) => defaultDatabase
+  Future<void> addToFavorites(Movie movie) => defaultDatabase
       .into(defaultDatabase.favoriteMovies)
       .insert(_mapToCompanion(movie));
 }

@@ -1,72 +1,71 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemotion/domain/entities/movie/movie.dart';
+import 'package:cinemotion/presentation/providers/storage/favorite_movies_provider.dart';
 import 'package:cinemotion/presentation/widgets/movies/one_sheet/decoration/gradients.dart';
+import 'package:cinemotion/presentation/widgets/shared/heart_like.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MovieSheet extends StatefulWidget {
+class MovieSheet extends ConsumerStatefulWidget {
   final Movie movie;
 
   const MovieSheet({super.key, required this.movie});
 
   @override
-  State<MovieSheet> createState() => _MovieSheetState();
+  ConsumerState<MovieSheet> createState() => _MovieSheetState();
 }
 
-class _MovieSheetState extends State<MovieSheet> {
+class _MovieSheetState extends ConsumerState<MovieSheet> {
   bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // 1. The Poster (Bottom)
+        // Poster (Background)
         SizedBox.expand(child: _buildMoviePoster(movie: widget.movie)),
 
-        // 2. The FIX: A dedicated interaction layer on TOP of everything
+        // Top Layer
         Positioned.fill(
           child: GestureDetector(
-            // We use opaque to ensure the "empty space" is tappable
+            // Empty space to touch
             behavior: HitTestBehavior.opaque,
             onDoubleTap: _markAsFavorite,
-            // We give it a transparent child so it has a physical "hit area"
+            // Physical hit area
             child: Container(color: Colors.transparent),
           ),
         ),
 
-        // 3. The Visuals (Ignored by touches so they don't block the detector)
+        // Ignore by touches so they do not block the detector
         IgnorePointer(
           child: Stack(
-            children: [
-              if (isVisible)
-                Center(
-                  child: ZoomIn(
-                    duration: const Duration(milliseconds: 700),
-                    child: const Icon(
-                      Icons.favorite,
-                      size: 100,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ...gradients,
-            ],
+            children: [if (isVisible) const HeartLike(), ...gradients],
           ),
         ),
       ],
     );
   }
 
-  void _markAsFavorite() {
+  void _triggerAnimation() {
+    if (!mounted) return;
+
+    // Trigger the visual animation on double tap by making the icon visible
     setState(() => isVisible = true);
-    Future.delayed(const Duration(milliseconds: 700), () {
-      // Check if the widget is still "mounted" before calling setState
-      // (Prevents errors if the user leaves the screen before the timer finishes)
+
+    // Hide the animation after the delay
+    Future.delayed(const Duration(milliseconds: 600), () {
       if (mounted) {
-        setState(() {
-          isVisible = false;
-        });
+        setState(() => isVisible = false);
       }
     });
+  }
+
+  void _markAsFavorite() async {
+    setState(() => isVisible = true);
+    _triggerAnimation();
+    // Check the current favorite state using the FutureProvider
+    // (read used here since this not a build phase)
+    ref.read(favoriteMoviesProvider.notifier).markAsFavorite(widget.movie);
   }
 }
 
