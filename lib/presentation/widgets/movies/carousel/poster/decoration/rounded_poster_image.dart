@@ -28,6 +28,7 @@ class RoundedPosterImage extends StatelessWidget {
               child: FadeInImage(
                 height: 220,
                 fit: BoxFit.cover,
+                placeholderFit: BoxFit.contain,
                 placeholder: const AssetImage('assets/loaders/film_reel.gif'),
                 image: NetworkImage(movie.posterPath),
               ),
